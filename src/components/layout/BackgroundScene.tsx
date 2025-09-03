@@ -4,12 +4,14 @@ interface BackgroundSceneProps {
   imageUrl?: string;
   starImageUrl?: string;
   textGifUrl?: string;
+  showTextGif?: boolean;
 }
 
 export function BackgroundScene({ 
   imageUrl = '/background.png',
   starImageUrl = '/star-bg.png',
-  textGifUrl = '/Ariel-text.gif'
+  textGifUrl = '/Ariel-text.gif',
+  showTextGif = true
 }: BackgroundSceneProps) {
   return (
     <>
@@ -34,15 +36,17 @@ export function BackgroundScene({
         }}
       />
       
-      {/* NEW: ARIEL Text GIF - Centered - ONLY THIS IS RESPONSIVE */}
-      <div 
-        className="absolute inset-0 bg-center bg-no-repeat transition-all duration-500 ease-in-out
-                   bg-[length:500px] sm:bg-[length:600px] md:bg-[length:800px] lg:bg-[length:1000px] xl:bg-[length:1200px]"
-        style={{
-          backgroundImage: `url('${textGifUrl}')`,
-          backgroundPosition: 'center'
-        }}
-      />
+      {/* ARIEL Text GIF - Only show when showTextGif is true */}
+      {showTextGif && (
+        <div 
+          className="absolute inset-0 bg-center bg-no-repeat transition-all duration-500 ease-in-out
+                     bg-[length:500px] sm:bg-[length:600px] md:bg-[length:800px] lg:bg-[length:1000px] xl:bg-[length:1200px]"
+          style={{
+            backgroundImage: `url('${textGifUrl}')`,
+            backgroundPosition: 'center'
+          }}
+        />
+      )}
       
       {/* Original Responsive overlay - UNCHANGED */}
       <div className="absolute inset-0 bg-gradient-to-br from-black/5 via-transparent to-black/10" />

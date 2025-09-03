@@ -1,3 +1,86 @@
 @tailwind base;
 @tailwind components;
-@tailwind utilities; 
+@tailwind utilities;
+
+/* Custom Scrollbar Styles - Light Blue Theme with Arrows */
+html ::-webkit-scrollbar,
+body ::-webkit-scrollbar,
+* ::-webkit-scrollbar {
+  width: 12px !important;
+  height: 12px !important;
+}
+
+html ::-webkit-scrollbar-track,
+body ::-webkit-scrollbar-track,
+* ::-webkit-scrollbar-track {
+  background: #f0f8ff !important; /* Very light alice blue background */
+  border-radius: 0 !important;
+}
+
+html ::-webkit-scrollbar-thumb,
+body ::-webkit-scrollbar-thumb,
+* ::-webkit-scrollbar-thumb {
+  background: #e0f0ff !important; /* Very light blue */
+  border-radius: 2px !important;
+  border: 1px solid #d0e8ff !important;
+}
+
+html ::-webkit-scrollbar-thumb:hover,
+body ::-webkit-scrollbar-thumb:hover,
+* ::-webkit-scrollbar-thumb:hover {
+  background: #d0e8ff !important; /* Slightly darker light blue on hover */
+  border: 1px solid #c0e0ff !important;
+}
+
+/* Scrollbar buttons (arrows) */
+html ::-webkit-scrollbar-button:single-button,
+body ::-webkit-scrollbar-button:single-button,
+* ::-webkit-scrollbar-button:single-button {
+  background: #f0f8ff !important; /* Very light blue */
+  border: 1px solid #e0f0ff !important;
+  width: 12px !important;
+  height: 12px !important;
+  display: block !important;
+}
+
+html ::-webkit-scrollbar-button:single-button:hover,
+body ::-webkit-scrollbar-button:single-button:hover,
+* ::-webkit-scrollbar-button:single-button:hover {
+  background: #e0f0ff !important; /* Slightly darker on hover */
+  border: 1px solid #d0e8ff !important;
+}
+
+/* Up arrow */
+html ::-webkit-scrollbar-button:single-button:vertical:decrement,
+body ::-webkit-scrollbar-button:single-button:vertical:decrement,
+* ::-webkit-scrollbar-button:single-button:vertical:decrement {
+  background-color: #87ceeb !important;
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffffff' d='M6 4l3 3H3z'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: 8px !important;
+  border: 1px solid #5f9ea0 !important;
+}
+
+/* Down arrow */
+html ::-webkit-scrollbar-button:single-button:vertical:increment,
+body ::-webkit-scrollbar-button:single-button:vertical:increment,
+* ::-webkit-scrollbar-button:single-button:vertical:increment {
+  background-color: #87ceeb !important;
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffffff' d='M6 8L3 5h6z'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: 8px !important;
+  border: 1px solid #5f9ea0 !important;
+}
+
+/* Firefox scrollbar styles */
+html, body, * {
+  scrollbar-width: auto !important;
+  scrollbar-color: #e0f0ff #f0f8ff !important;
+}
+
+/* Prevent body scroll on all pages */
+body:has([data-page]) {
+  overflow: hidden !important;
+} 

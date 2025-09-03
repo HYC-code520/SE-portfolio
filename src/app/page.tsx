@@ -20,7 +20,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
+    <div className="h-screen relative overflow-hidden" data-page="home">
       <BackgroundScene />
       <Navigation />
       <HeroSection content={heroContent} />
