@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronRight, ExternalLink, Github } from 'lucide-react';
 
@@ -13,169 +13,259 @@ interface Project {
   liveUrl?: string;
   githubUrl?: string;
   category: string;
+  year: string;
 }
 
 const projects: Project[] = [
   {
     id: '1',
-    title: 'E-Commerce Platform',
-    description: 'Full-stack web application with payment integration and modern UI',
-    image: '/project-1.jpg',
-    technologies: ['React', 'Node.js', 'MongoDB', 'Stripe'],
-    category: 'Web Development',
-    liveUrl: '#',
+    title: 'Psykhe Big 5 Personality Test',
+    description: 'Professional personality assessment platform built for Psykhe, featuring comprehensive Big 5 personality testing with advanced analytics and user insights',
+    image: '/project-psykhe.jpg',
+    technologies: ['React', 'TypeScript', 'Next.js'],
+    category: 'Professional',
+    year: '2024',
+    liveUrl: 'https://psykhe.com/big-5-personality-test',
     githubUrl: '#'
   },
   {
     id: '2',
-    title: 'Mobile Task Manager',
-    description: 'Cross-platform mobile app for productivity and task management',
-    image: '/project-2.jpg',
-    technologies: ['React Native', 'Firebase', 'Redux'],
-    category: 'Mobile App',
+    title: 'Finance Tech',
+    description: 'Financial technology application for modern banking solutions',
+    image: '/project-1.jpg',
+    technologies: ['React', 'Node.js', 'MongoDB'],
+    category: 'FinTech',
+    year: '2025',
     liveUrl: '#',
-    githubUrl: '#'
+    githubUrl: 'https://github.com/HYC-code520/Finance-Tech'
   },
   {
     id: '3',
-    title: 'AI Chat Bot',
-    description: 'Intelligent chatbot with natural language processing capabilities',
-    image: '/project-3.jpg',
-    technologies: ['Python', 'TensorFlow', 'FastAPI'],
-    category: 'AI/ML',
+    title: 'Climate Tech',
+    description: 'Environmental technology platform for climate monitoring and solutions',
+    image: '/project-2.jpg',
+    technologies: ['React', 'Python', 'APIs'],
+    category: 'Climate Tech',
+    year: '2025',
     liveUrl: '#',
-    githubUrl: '#'
+    githubUrl: 'https://github.com/HYC-code520/ClimateTech'
   },
   {
     id: '4',
-    title: 'Data Visualization Dashboard',
-    description: 'Interactive dashboard for business analytics and data insights',
-    image: '/project-4.jpg',
-    technologies: ['D3.js', 'Vue.js', 'PostgreSQL'],
-    category: 'Data Science',
+    title: 'Fix StitchFix',
+    description: 'Fashion recommendation system with personalized styling solutions',
+    image: '/project-3.jpg',
+    technologies: ['JavaScript', 'CSS', 'HTML'],
+    category: 'E-Commerce',
+    year: '2025',
     liveUrl: '#',
-    githubUrl: '#'
+    githubUrl: 'https://github.com/HYC-code520/Fix-StitchFix'
   },
   {
     id: '5',
-    title: 'Blockchain Wallet',
-    description: 'Secure cryptocurrency wallet application with multi-chain support',
-    image: '/project-5.jpg',
-    technologies: ['Solidity', 'Web3.js', 'React'],
-    category: 'Blockchain',
+    title: 'Inner Child Mobile App',
+    description: 'Mobile application for childhood memory preservation and sharing',
+    image: '/project-4.jpg',
+    technologies: ['React Native', 'Firebase', 'Redux'],
+    category: 'Mobile App',
+    year: '2025',
     liveUrl: '#',
-    githubUrl: '#'
+    githubUrl: 'https://github.com/HYC-code520/Inner-Child-Mobile-App'
   },
   {
     id: '6',
-    title: 'Social Media App',
-    description: 'Real-time social networking platform with live messaging',
-    image: '/project-6.jpg',
-    technologies: ['Next.js', 'Socket.io', 'Redis'],
-    category: 'Social Platform',
+    title: 'Your Next Gift',
+    description: 'Gift recommendation platform with personalized suggestions',
+    image: '/project-5.jpg',
+    technologies: ['React', 'Express', 'PostgreSQL'],
+    category: 'E-Commerce',
+    year: '2025',
     liveUrl: '#',
-    githubUrl: '#'
+    githubUrl: 'https://github.com/HYC-code520/your-next-gift'
   },
   {
     id: '7',
-    title: 'Weather Forecast App',
-    description: 'Real-time weather tracking with location services and alerts',
-    image: '/project-7.jpg',
-    technologies: ['React', 'OpenWeather API', 'Geolocation'],
-    category: 'Utility App',
+    title: 'Feel Good App',
+    description: 'Mental wellness application for mood tracking and self-care',
+    image: '/project-6.jpg',
+    technologies: ['React', 'Node.js', 'MongoDB'],
+    category: 'Health & Wellness',
+    year: '2025',
     liveUrl: '#',
-    githubUrl: '#'
+    githubUrl: 'https://github.com/HYC-code520/p3-feel-good-app'
   },
   {
     id: '8',
-    title: 'Recipe Management System',
-    description: 'Digital cookbook with meal planning and shopping list features',
-    image: '/project-8.jpg',
-    technologies: ['Vue.js', 'Express.js', 'MySQL'],
+    title: 'LoveLog App',
+    description: 'Relationship tracking app for couples to log memories and milestones with location mapping',
+    image: '/project-7.jpg',
+    technologies: ['React Native', 'Flask', 'Python'],
     category: 'Lifestyle',
+    year: '2025',
     liveUrl: '#',
-    githubUrl: '#'
+    githubUrl: 'https://github.com/HYC-code520/LoveLog-App'
   },
   {
     id: '9',
-    title: 'Fitness Tracker',
-    description: 'Personal fitness and workout tracking application with analytics',
-    image: '/project-9.jpg',
-    technologies: ['Flutter', 'Dart', 'Health APIs'],
-    category: 'Health & Fitness',
+    title: 'PawHub',
+    description: 'Pet care management platform for pet owners and veterinarians',
+    image: '/project-8.jpg',
+    technologies: ['React', 'Express', 'PostgreSQL'],
+    category: 'Pet Care',
+    year: '2025',
     liveUrl: '#',
-    githubUrl: '#'
-  },
-  {
-    id: '10',
-    title: 'Music Streaming Platform',
-    description: 'Audio streaming service with playlist management and discovery',
-    image: '/project-10.jpg',
-    technologies: ['Angular', 'Node.js', 'Audio APIs'],
-    category: 'Entertainment',
-    liveUrl: '#',
-    githubUrl: '#'
+    githubUrl: 'https://github.com/HYC-code520/PawHub'
   }
 ];
 
 export function ProjectGallery() {
+  const [selectedProject, setSelectedProject] = useState<string>('1');
+  const rightContainerRef = useRef<HTMLDivElement>(null);
+  const isScrollingRef = useRef<boolean>(false);
+  const hasInitialized = useRef<boolean>(false);
+
+  // Initialize after component mounts to prevent viewport detection from overriding default selection
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      hasInitialized.current = true;
+    }, 1000); // Wait 1 second before enabling viewport detection
+    
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Function to scroll to a specific project on the right side
+  const scrollToProject = (projectId: string) => {
+    const element = document.getElementById(`project-${projectId}`);
+    const rightContainer = rightContainerRef.current;
+    
+    if (element && rightContainer) {
+      isScrollingRef.current = true; // Disable viewport detection
+      setSelectedProject(projectId);
+      
+      const containerRect = rightContainer.getBoundingClientRect();
+      const elementRect = element.getBoundingClientRect();
+      const scrollTop = rightContainer.scrollTop + elementRect.top - containerRect.top;
+      
+      rightContainer.scrollTo({
+        top: scrollTop,
+        behavior: 'smooth'
+      });
+      
+      // Re-enable viewport detection after scroll completes
+      setTimeout(() => {
+        isScrollingRef.current = false;
+      }, 1000);
+    }
+  };
+
   return (
-    <div className="relative z-30 h-screen flex overflow-hidden">
-      {/* Left Sidebar - Fixed Project List - Hidden on mobile */}
-      <div className="hidden md:flex md:w-1/2 p-8 md:p-12 flex-col h-screen">
+    <>
+      <style jsx>{`
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: rgba(255, 255, 255, 0.2);
+          border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: rgba(255, 255, 255, 0.3);
+        }
+      `}</style>
+      <div className="relative z-30 min-h-screen px-8 py-20">
+      <div className="max-w-screen-2xl mx-auto flex overflow-hidden">
+        {/* Left Sidebar - Fixed Project List - Hidden on mobile */}
+        <div className="hidden md:flex md:w-2/5 pr-6 flex-col">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+        <div className="mb-6">
+          <h1 className="text-xs font-bold text-white">
             My Projects
           </h1>
-          <p className="text-white/70 text-lg">
-            A collection of my recent work and experiments
-          </p>
         </div>
 
         {/* Fixed Project List - No Scrolling */}
-        <div className="flex-1 space-y-3">
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.id}
-              className="p-3 rounded-xl transition-all duration-300 bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: index * 0.1 }}
-            >
-              <div className="flex items-center justify-between">
-                <div className="flex-1">
-                  <h3 className="text-white font-semibold text-base mb-1">
-                    {project.title}
-                  </h3>
-                  <p className="text-white/60 text-xs">
-                    {project.category}
-                  </p>
+        <div className="flex-1 space-y-1">
+          {projects.map((project, index) => {
+            const isSelected = selectedProject === project.id;
+            return (
+              <motion.div
+                key={project.id}
+                className={`p-2 md:p-3 lg:p-4 cursor-pointer transition-all duration-300 ${
+                  isSelected 
+                    ? 'bg-white/20 border-l-4 border-white' 
+                    : 'bg-white/5 hover:bg-white/10'
+                }`}
+                initial={{ opacity: 0, x: -5 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ 
+                  delay: index * 0.03,
+                  duration: 0.25,
+                  ease: "easeOut"
+                }}
+                onClick={() => scrollToProject(project.id)}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex-1 flex items-center min-w-0">
+                    {/* Year - Hidden on smaller screens */}
+                    <div className="hidden lg:block w-12 text-white/60 font-medium text-sm flex-shrink-0">
+                      {project.year}
+                    </div>
+                    {/* Project Title - Truncated on overflow */}
+                    <div className="flex-1 text-white font-semibold text-sm px-2 lg:px-4 truncate">
+                      {project.title}
+                    </div>
+                    {/* Technologies - Hidden on medium screens, shown on large */}
+                    <div className="hidden xl:block w-32 lg:w-48 text-white/70 text-xs text-right flex-shrink-0">
+                      {project.technologies.slice(0, 2).join(' & ')}
+                    </div>
+                    {/* Single tech on medium screens */}
+                    <div className="hidden lg:block xl:hidden w-20 text-white/70 text-xs text-right flex-shrink-0">
+                      {project.technologies[0]}
+                    </div>
+                  </div>
+                  {isSelected && (
+                    <ChevronRight className="w-4 h-4 text-white ml-2 flex-shrink-0" />
+                  )}
                 </div>
-                <ChevronRight className="w-4 h-4 text-white/60" />
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
       </div>
 
-      {/* Right Side - Scrollable Project Gallery - Full width on mobile */}
-      <div className="w-full md:w-1/2 h-screen overflow-y-auto">
-        <div className="p-8 md:p-12 space-y-8">
+        {/* Right Side - Scrollable Project Gallery - Full width on mobile */}
+        <div ref={rightContainerRef} className="w-full md:w-3/5 max-h-[70vh] overflow-y-auto pl-6 pr-4 custom-scrollbar">
+          <div className="space-y-8 pb-16">
           {projects.map((project, index) => (
             <motion.div
               key={project.id}
-              className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl overflow-hidden shadow-xl"
-              initial={{ opacity: 0, y: 50 }}
+              id={`project-${project.id}`}
+              className={`bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl overflow-hidden shadow-xl transition-all duration-300 ${
+                selectedProject === project.id ? 'ring-2 ring-white/30' : ''
+              }`}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
+              transition={{ 
+                delay: index * 0.02,
+                duration: 0.3,
+                ease: "easeOut"
+              }}
               whileHover={{ 
                 scale: 1.02,
                 boxShadow: "0 0 30px rgba(255, 255, 255, 0.1)"
               }}
+              onViewportEnter={() => {
+                if (!isScrollingRef.current && hasInitialized.current) {
+                  setSelectedProject(project.id);
+                }
+              }}
+              onHoverStart={() => setSelectedProject(project.id)}
             >
               {/* Project Image */}
-              <div className="aspect-video bg-gradient-to-br from-white/20 to-white/5 flex items-center justify-center">
+              <div className="aspect-[16/8] bg-gradient-to-br from-white/20 to-white/5 flex items-center justify-center">
                 <div className="text-white/40 text-center">
                   <div className="w-24 h-24 bg-white/10 rounded-2xl mx-auto mb-4 flex items-center justify-center">
                     <ExternalLink className="w-12 h-12 text-white/60" />
@@ -239,8 +329,10 @@ export function ProjectGallery() {
               </div>
             </motion.div>
           ))}
+          </div>
         </div>
       </div>
     </div>
+    </>
   );
 }

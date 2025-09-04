@@ -30,8 +30,11 @@ export function Navigation({ className, skipAnimation = false }: NavigationProps
       animate={shouldAnimate ? "visible" : false}
       transition={shouldAnimate ? { duration: 0.8, ease: "easeOut" } : undefined}
     >
-      {/* Home Button */}
-      <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+      {/* Home Button - Always show on left */}
+      <motion.div 
+        whileHover={{ scale: 1.05 }} 
+        whileTap={{ scale: 0.95 }}
+      >
         <Link href="/">
           <Button 
             variant="ghost" 
@@ -44,7 +47,7 @@ export function Navigation({ className, skipAnimation = false }: NavigationProps
         </Link>
       </motion.div>
 
-      {/* Desktop Navigation */}
+      {/* Desktop Navigation - Always on right */}
       <div className="hidden md:flex space-x-2">
         {navItems.map((item, index) => (
           <motion.div 
@@ -69,7 +72,7 @@ export function Navigation({ className, skipAnimation = false }: NavigationProps
         ))}
       </div>
 
-      {/* Mobile Menu Button */}
+      {/* Mobile Menu Button - Always on right */}
       <motion.div 
         className="md:hidden"
         whileHover={{ scale: 1.05 }}

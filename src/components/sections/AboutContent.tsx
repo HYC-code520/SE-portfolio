@@ -41,7 +41,7 @@ export function AboutContent() {
             initial="hidden"
             animate="visible"
         >
-            <div className="max-w-7xl mx-auto">
+            <div className="max-w-screen-2xl mx-auto">
                 {/* Header Section */}
                 <motion.div
                     className="mb-16"
