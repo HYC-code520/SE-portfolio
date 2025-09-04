@@ -22,7 +22,7 @@ export function ContactSection() {
 
   return (
     <motion.div 
-      className="relative z-30 flex flex-col items-center justify-center min-h-[70vh] px-8"
+      className="relative z-30 flex flex-col items-center justify-center min-h-screen pt-24 px-8 sm:px-12 md:px-16 lg:px-20"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
@@ -44,7 +44,7 @@ export function ContactSection() {
         <Sparkles className="w-6 h-6 text-white/50" />
       </motion.div>
 
-      <div className="max-w-screen-2xl w-full grid md:grid-cols-2 gap-12 items-start">
+      <div className="max-w-6xl w-full grid md:grid-cols-2 gap-8 md:gap-12 items-start">
         {/* Contact Information */}
         <motion.div 
           className="space-y-8"
@@ -103,7 +103,7 @@ export function ContactSection() {
 
         {/* Contact Form */}
         <motion.div 
-          className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-8"
+          className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 sm:p-8"
           variants={itemVariants}
         >
           <ContactForm onSubmit={handleFormSubmit} />

@@ -20,7 +20,7 @@ export function SideContent({
     <>
       {/* Left Side Content */}
       <motion.div 
-        className="absolute bottom-12 left-8 md:left-12 z-30"
+        className="absolute bottom-8 left-8 md:left-12 z-30"
         variants={sideContentVariants}
         initial="hidden"
         animate="visible"
@@ -61,7 +61,7 @@ export function SideContent({
 
       {/* Right Side - Page Counter */}
       <motion.div 
-        className="absolute bottom-12 right-8 md:right-12 z-30"
+        className="absolute bottom-8 right-8 md:right-12 z-30"
         initial={{ x: 50, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ delay: 1, duration: 0.8 }}

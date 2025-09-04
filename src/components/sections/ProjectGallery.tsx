@@ -175,8 +175,8 @@ export function ProjectGallery() {
           background: rgba(255, 255, 255, 0.3);
         }
       `}</style>
-      <div className="relative z-30 min-h-screen px-8 py-20">
-      <div className="max-w-screen-2xl mx-auto flex overflow-hidden">
+      <div className="relative z-30 flex flex-col items-center justify-center min-h-screen pt-24 px-8 sm:px-12 md:px-16 lg:px-20">
+      <div className="max-w-6xl mx-auto flex overflow-hidden">
         {/* Left Sidebar - Fixed Project List - Hidden on mobile */}
         <div className="hidden md:flex md:w-2/5 pr-6 flex-col">
         {/* Header */}
@@ -209,12 +209,8 @@ export function ProjectGallery() {
               >
                 <div className="flex items-center justify-between">
                   <div className="flex-1 flex items-center min-w-0">
-                    {/* Year - Hidden on smaller screens */}
-                    <div className="hidden lg:block w-12 text-white/60 font-medium text-sm flex-shrink-0">
-                      {project.year}
-                    </div>
                     {/* Project Title - Truncated on overflow */}
-                    <div className="flex-1 text-white font-semibold text-sm px-2 lg:px-4 truncate">
+                    <div className="flex-1 text-white font-semibold text-sm px-2 truncate">
                       {project.title}
                     </div>
                     {/* Technologies - Hidden on medium screens, shown on large */}
@@ -237,8 +233,18 @@ export function ProjectGallery() {
       </div>
 
         {/* Right Side - Scrollable Project Gallery - Full width on mobile */}
-        <div ref={rightContainerRef} className="w-full md:w-3/5 max-h-[70vh] overflow-y-auto pl-6 pr-4 custom-scrollbar">
-          <div className="space-y-8 pb-16">
+        <div className="relative w-full md:w-3/5 max-h-[70vh]">
+
+          
+          <div 
+            ref={rightContainerRef} 
+            className="h-full overflow-y-auto pl-6 pr-4 custom-scrollbar"
+            style={{
+              maskImage: 'linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%)',
+              WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%)'
+            }}
+          >
+            <div className="space-y-8 pb-16 pt-4">
           {projects.map((project, index) => (
             <motion.div
               key={project.id}
@@ -329,6 +335,7 @@ export function ProjectGallery() {
               </div>
             </motion.div>
           ))}
+          </div>
           </div>
         </div>
       </div>

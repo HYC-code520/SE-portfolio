@@ -10,6 +10,10 @@ const nextConfig = {
     }
     return config
   },
+  // Uncomment the lines below if deploying to Netlify
+  // output: 'export',
+  // trailingSlash: true,
+  // images: { unoptimized: true }
 }
 
 module.exports = nextConfig 

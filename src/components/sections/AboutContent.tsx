@@ -36,12 +36,12 @@ const skillCategories = [
 export function AboutContent() {
     return (
         <motion.div
-            className="relative z-30 h-screen overflow-y-auto px-8 py-20"
+            className="relative z-30 flex flex-col items-center justify-center min-h-screen pt-24 px-8 sm:px-12 md:px-16 lg:px-20"
             variants={containerVariants}
             initial="hidden"
             animate="visible"
         >
-            <div className="max-w-screen-2xl mx-auto">
+            <div className="max-w-6xl mx-auto">
                 {/* Header Section */}
                 <motion.div
                     className="mb-16"
@@ -150,15 +150,8 @@ export function AboutContent() {
                                 />
                                 {/* Fallback content */}
                                 <div className="hidden w-full h-full flex items-center justify-center text-white/40 text-center">
-                                    <div>
-                                        <div className="w-24 h-24 bg-white/10 rounded-full mx-auto mb-4 flex items-center justify-center">
-                                            <Star className="w-12 h-12 text-white/60 fill-current" />
-                                        </div>
-                                        <p className="text-sm">Your Photo Here</p>
-                                        <p className="text-xs mt-2 text-white/30">
-                                            Add your profile image to<br />
-                                            /public/profile.jpg
-                                        </p>
+                                    <div className="w-24 h-24 bg-white/10 rounded-full mx-auto flex items-center justify-center">
+                                        <Star className="w-12 h-12 text-white/60 fill-current" />
                                     </div>
                                 </div>
                             </div>

@@ -22,6 +22,30 @@ export function Navigation({ className, skipAnimation = false }: NavigationProps
   // Only animate on home page unless skipAnimation is explicitly set
   const shouldAnimate = isHomePage && !skipAnimation;
 
+  const handleNavClick = (href: string) => {
+    if (href.startsWith('#')) {
+      // Handle anchor links with smooth scrolling
+      const element = document.getElementById(href.substring(1));
+      if (element) {
+        element.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    }
+    setIsMenuOpen(false);
+  };
+
+  const handleHomeClick = () => {
+    if (isHomePage) {
+      // If already on home page, scroll to top
+      document.getElementById('home')?.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
   return (
     <motion.nav 
       className={`relative z-50 flex justify-between items-center p-8 md:p-12 ${className}`}
@@ -35,16 +59,28 @@ export function Navigation({ className, skipAnimation = false }: NavigationProps
         whileHover={{ scale: 1.05 }} 
         whileTap={{ scale: 0.95 }}
       >
-        <Link href="/">
+        {isHomePage ? (
           <Button 
             variant="ghost" 
             size="lg"
+            onClick={handleHomeClick}
             className="text-white bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 rounded-2xl px-6 py-3 font-medium tracking-wide shadow-lg transition-all duration-300"
           >
             <Home className="w-5 h-5 mr-2" />
             Home
           </Button>
-        </Link>
+        ) : (
+          <Link href="/">
+            <Button 
+              variant="ghost" 
+              size="lg"
+              className="text-white bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 rounded-2xl px-6 py-3 font-medium tracking-wide shadow-lg transition-all duration-300"
+            >
+              <Home className="w-5 h-5 mr-2" />
+              Home
+            </Button>
+          </Link>
+        )}
       </motion.div>
 
       {/* Desktop Navigation - Always on right */}
@@ -58,16 +94,28 @@ export function Navigation({ className, skipAnimation = false }: NavigationProps
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <Link href={item.href}>
+            {isHomePage && item.href.startsWith('#') ? (
               <Button 
                 variant="ghost"
+                onClick={() => handleNavClick(item.href)}
                 className={`text-white hover:bg-white/20 backdrop-blur-md rounded-2xl px-8 py-3 font-medium tracking-wide transition-all duration-300 shadow-lg ${
                   index === 0 ? 'border border-white/30 bg-white/10' : 'border border-white/10 hover:border-white/20'
                 }`}
               >
                 {item.label}
               </Button>
-            </Link>
+            ) : (
+              <Link href={item.href.startsWith('#') ? '/' + item.href : item.href}>
+                <Button 
+                  variant="ghost"
+                  className={`text-white hover:bg-white/20 backdrop-blur-md rounded-2xl px-8 py-3 font-medium tracking-wide transition-all duration-300 shadow-lg ${
+                    index === 0 ? 'border border-white/30 bg-white/10' : 'border border-white/10 hover:border-white/20'
+                  }`}
+                >
+                  {item.label}
+                </Button>
+              </Link>
+            )}
           </motion.div>
         ))}
       </div>
@@ -98,14 +146,26 @@ export function Navigation({ className, skipAnimation = false }: NavigationProps
         >
           <div className="flex flex-col space-y-3">
             {navItems.map((item) => (
-              <Link key={item.label} href={item.href}>
-                <Button
-                  variant="ghost"
-                  className="text-white hover:bg-white/20 rounded-2xl px-6 py-3 font-medium tracking-wide transition-all duration-300 justify-start w-full"
-                >
-                  {item.label}
-                </Button>
-              </Link>
+              <div key={item.label}>
+                {isHomePage && item.href.startsWith('#') ? (
+                  <Button
+                    variant="ghost"
+                    onClick={() => handleNavClick(item.href)}
+                    className="text-white hover:bg-white/20 rounded-2xl px-6 py-3 font-medium tracking-wide transition-all duration-300 justify-start w-full"
+                  >
+                    {item.label}
+                  </Button>
+                ) : (
+                  <Link href={item.href.startsWith('#') ? '/' + item.href : item.href}>
+                    <Button
+                      variant="ghost"
+                      className="text-white hover:bg-white/20 rounded-2xl px-6 py-3 font-medium tracking-wide transition-all duration-300 justify-start w-full"
+                    >
+                      {item.label}
+                    </Button>
+                  </Link>
+                )}
+              </div>
             ))}
           </div>
         </motion.div>

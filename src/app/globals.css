@@ -80,7 +80,18 @@ html, body, * {
   scrollbar-color: #e0f0ff #f0f8ff !important;
 }
 
-/* Prevent body scroll on all pages */
-body:has([data-page]) {
+/* Smooth scrolling behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Allow scrolling for single-page layout */
+body {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Prevent body scroll only on individual pages (not home) */
+body:has([data-page]:not([data-page="home"])) {
   overflow: hidden !important;
 } 

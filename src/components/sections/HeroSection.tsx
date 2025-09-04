@@ -14,7 +14,7 @@ interface HeroSectionProps {
 export function HeroSection({ content }: HeroSectionProps) {
   return (
     <motion.div 
-      className="relative z-30 flex flex-col items-center justify-center min-h-[70vh] px-8 text-center"
+      className="relative z-30 flex flex-col items-center justify-center min-h-screen pt-24 px-8 sm:px-12 md:px-16 lg:px-20 text-center"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
