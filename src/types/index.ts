@@ -11,8 +11,9 @@ export interface SocialLink {
 }
 
 export interface AnimationVariants {
-  hidden: any;
-  visible: any;
+  [key: string]: any;
+  hidden?: any;
+  visible?: any;
   animate?: any;
 }
 
