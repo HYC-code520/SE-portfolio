@@ -23,6 +23,7 @@ const projects: Project[] = [
     title: 'Psykhe Big 5 Personality Test',
     description: 'Professional personality assessment platform built for Psykhe, featuring comprehensive Big 5 personality testing with advanced analytics and user insights',
     image: '/project-psykhe.jpg',
+    video: '/videos/Psykhe-AI-test.mp4',
     technologies: ['React', 'TypeScript', 'Next.js'],
     category: 'Professional',
     year: '2024',
@@ -101,6 +102,7 @@ const projects: Project[] = [
     title: 'LoveLog App',
     description: 'Relationship tracking app for couples to log memories and milestones with location mapping',
     image: '/project-7.jpg',
+    video: '/videos/LoveLogApp.mp4',
     technologies: ['React Native', 'Flask', 'Python'],
     category: 'Lifestyle',
     year: '2025',
@@ -126,11 +128,54 @@ export function ProjectGallery() {
   const rightContainerRef = useRef<HTMLDivElement>(null);
   const isScrollingRef = useRef<boolean>(false);
   const hasInitialized = useRef<boolean>(false);
+  const videoRefs = useRef<{[key: string]: HTMLVideoElement | null}>({});
 
   // Ensure client-side rendering for video
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  // Set up intersection observer for videos
+  useEffect(() => {
+    if (!isClient) return;
+    
+    const options = {
+      root: rightContainerRef.current,
+      rootMargin: '0px',
+      threshold: 0.3 // Video must be 30% visible to be considered in view
+    };
+
+    const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach(entry => {
+        const projectId = entry.target.id.replace('project-', '');
+        const videoElement = videoRefs.current[projectId];
+        
+        if (videoElement) {
+          if (!entry.isIntersecting && !videoElement.paused) {
+            // Pause video when out of view
+            videoElement.pause();
+          } else if (entry.isIntersecting && videoElement.paused) {
+            // Optional: Auto-play when in view (uncomment if desired)
+            // videoElement.play();
+          }
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(handleIntersection, options);
+    
+    // Observe all project elements
+    projects.forEach(project => {
+      const element = document.getElementById(`project-${project.id}`);
+      if (element) {
+        observer.observe(element);
+      }
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [isClient]);
 
   // Initialize after component mounts to prevent viewport detection from overriding default selection
   useEffect(() => {
@@ -186,9 +231,11 @@ export function ProjectGallery() {
         <div className="hidden md:flex md:w-2/5 pr-6 flex-col">
         {/* Header */}
         <div className="mb-6">
-          <h1 className="text-xs font-bold text-white">
-            My Projects
-          </h1>
+          <div className="flex items-center gap-4 mb-2">
+            <span className="text-white/60 text-lg">...</span>
+            <span className="text-white/90 text-xl font-medium">/My Projects</span>
+            <span className="text-white/60 text-lg">...</span>
+          </div>
         </div>
 
         {/* Fixed Project List - No Scrolling */}
@@ -277,7 +324,7 @@ export function ProjectGallery() {
             >
               {/* Project Image/Video */}
               <div className="aspect-[16/10] bg-gradient-to-br from-white/20 to-white/5 flex items-center justify-center overflow-hidden">
-                {isClient && project.video && project.id === '5' ? (
+                {isClient && project.video && (project.id === '5' || project.id === '1' || project.id === '8') ? (
                   <div className="w-full h-full relative">
                     <video 
                       className="w-full h-full object-contain"
@@ -285,8 +332,12 @@ export function ProjectGallery() {
                       muted
                       preload="metadata"
                       playsInline
+                      poster={project.image}
+                      ref={(el) => {
+                        videoRefs.current[project.id] = el;
+                      }}
                     >
-                      <source src="/videos/ICS-app-demo.mp4" type="video/mp4" />
+                      <source src={project.video} type="video/mp4" />
                       Your browser does not support the video tag.
                     </video>
                   </div>
@@ -297,7 +348,7 @@ export function ProjectGallery() {
                     </div>
                     <p className="text-lg font-medium">{project.title}</p>
                     <p className="text-sm mt-2 text-white/60">
-                      {project.video && project.id === '5' && !isClient ? 'Loading video...' : 'Project Screenshot'}
+                      {project.video && (project.id === '5' || project.id === '1' || project.id === '8') && !isClient ? 'Loading video...' : 'Project Screenshot'}
                     </p>
                   </div>
                 )}

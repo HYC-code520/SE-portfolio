@@ -27,10 +27,10 @@ export function AboutContent() {
                         <span className="text-white/60 text-lg">...</span>
                     </div>
 
-                    <div className="text-white/80 text-lg md:text-xl leading-relaxed">
-                        <span className="text-white">I'm Ariel — a developer, maker, and cat enthusiast. I used to work in fashion design, and now I use code as my new creative tool. I love building apps that are thoughtful, playful, and easy to use.</span>
-                        <br /><br />
-                        <span className="text-white">When I'm not coding, you can find me doing DIY projects, experimenting with new ideas, or filming my cats' latest adventures. I'm always curious, always creating, and always looking for new ways to mix creativity with tech.</span>
+                    <div className="text-white/80 leading-relaxed">
+                        <p className="text-white text-lg mb-4 leading-relaxed">I'm Ariel — a developer, maker, and cat enthusiast.</p>
+                        <p className="text-white/70 text-sm mb-6 leading-relaxed">I used to work in fashion design, and now I use code as my new creative tool. I love building apps that are thoughtful, playful, and easy to use.</p>
+                        <p className="text-white/70 text-sm leading-relaxed">When I'm not coding, you can find me doing DIY projects, experimenting with new ideas, or filming my cats' latest adventures. I'm always curious, always creating, and always looking for new ways to mix creativity with tech.</p>
                     </div>
                 </motion.div>
 
@@ -40,9 +40,10 @@ export function AboutContent() {
                         className="flex-1"
                         variants={itemVariants}
                     >
-                        <div className="text-white/80 text-lg leading-relaxed">
-                            <p className="mb-4">I believe in creating digital experiences that are both beautiful and functional. My background in fashion design gives me a unique perspective on user interfaces and experiences.</p>
-                            <p>I'm constantly learning and exploring new technologies to expand my skillset and create better solutions.</p>
+                        <div className="text-white/80 leading-relaxed">
+                            <p className="text-white text-sm mb-4 leading-relaxed">I believe in creating digital experiences that are both beautiful and functional.</p>
+                            <p className="text-white/70 text-sm mb-4 leading-relaxed">My background in fashion design gives me a unique perspective on user interfaces and experiences.</p>
+                            <p className="text-white/70 text-sm leading-relaxed">I'm constantly learning and exploring new technologies to expand my skillset and create better solutions.</p>
                         </div>
                     </motion.div>
 
