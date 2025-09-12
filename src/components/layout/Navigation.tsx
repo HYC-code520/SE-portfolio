@@ -55,13 +55,17 @@ export function Navigation({ className, skipAnimation = false }: NavigationProps
 
   const handleNavClick = (href: string) => {
     if (href.startsWith('#')) {
-      // Handle anchor links with smooth scrolling
+      // Handle anchor links with snap scrolling
       const element = document.getElementById(href.substring(1));
       if (element) {
+        // Use scrollIntoView with smooth behavior for compatibility with snap scrolling
         element.scrollIntoView({ 
           behavior: 'smooth',
           block: 'start'
         });
+        
+        // Update active section immediately for better UX
+        setActiveSection(href.substring(1));
       }
     }
     setIsMenuOpen(false);
@@ -69,11 +73,14 @@ export function Navigation({ className, skipAnimation = false }: NavigationProps
 
   const handleHomeClick = () => {
     if (isHomePage) {
-      // If already on home page, scroll to top
+      // If already on home page, scroll to top with snap scrolling
       document.getElementById('home')?.scrollIntoView({ 
         behavior: 'smooth',
         block: 'start'
       });
+      
+      // Update active section immediately for better UX
+      setActiveSection('home');
     }
   };
 
@@ -223,4 +230,4 @@ export function Navigation({ className, skipAnimation = false }: NavigationProps
       )}
     </motion.nav>
   );
-} 
+}

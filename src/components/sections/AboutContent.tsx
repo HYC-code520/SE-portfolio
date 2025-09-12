@@ -5,33 +5,7 @@ import { motion } from 'framer-motion';
 import { Star, ExternalLink } from 'lucide-react';
 import { containerVariants, itemVariants } from '@/config/animations';
 
-const skillCategories = [
-    {
-        title: "Frontend",
-        skills: [
-            "JavaScript", "TypeScript", "React", "React Native", "HTML", "CSS", 
-            "Vite", "Axios", "Expo", "Cross-Platform Mobile Development"
-        ]
-    },
-    {
-        title: "Backend",
-        skills: [
-            "Python", "Flask", "SQL", "SQLite", "PostgreSQL", "MySQL", "JWT", "RESTful APIs"
-        ]
-    },
-    {
-        title: "Tools & DevOps",
-        skills: [
-            "Git", "GitHub", "Postman", "Cloudinary", "GitHub Actions", "CI/CD", "Jest", "Pytest"
-        ]
-    },
-    {
-        title: "Other Skills",
-        skills: [
-            "API Integration", "Responsive Design", "Agile Workflows", "Unit Testing", "Relational Databases"
-        ]
-    }
-];
+// Skills moved to SkillsContent.tsx
 
 export function AboutContent() {
     return (
@@ -54,77 +28,27 @@ export function AboutContent() {
                     </div>
 
                     <div className="text-white/80 text-lg md:text-xl leading-relaxed">
-                        <span className="text-white">Hello! I'm Ariel, I'm a </span>
-                        <span className="text-white font-semibold italic">full-stack developer</span>
-                        <span className="text-white">.</span>
+                        <span className="text-white">I'm Ariel — a developer, maker, and cat enthusiast. I used to work in fashion design, and now I use code as my new creative tool. I love building apps that are thoughtful, playful, and easy to use.</span>
+                        <br /><br />
+                        <span className="text-white">When I'm not coding, you can find me doing DIY projects, experimenting with new ideas, or filming my cats' latest adventures. I'm always curious, always creating, and always looking for new ways to mix creativity with tech.</span>
                     </div>
                 </motion.div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-                    {/* Skills Section */}
+                {/* Profile Section */}
+                <div className="flex flex-col md:flex-row gap-8 items-center">
                     <motion.div
-                        className="lg:col-span-2 space-y-6"
+                        className="flex-1"
                         variants={itemVariants}
                     >
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            {skillCategories.map((category, index) => (
-                                <motion.div
-                                    key={category.title}
-                                    className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 shadow-xl"
-                                    variants={itemVariants}
-                                    whileHover={{
-                                        scale: 1.02,
-                                        boxShadow: "0 0 30px rgba(255, 255, 255, 0.1)"
-                                    }}
-                                    transition={{ duration: 0.3 }}
-                                >
-                                    <h3 className="text-white font-semibold text-lg mb-4">
-                                        {category.title}
-                                    </h3>
-                                    <div className="text-white/70 text-sm leading-relaxed">
-                                        {category.skills.join(" / ")}
-                                    </div>
-                                </motion.div>
-                            ))}
+                        <div className="text-white/80 text-lg leading-relaxed">
+                            <p className="mb-4">I believe in creating digital experiences that are both beautiful and functional. My background in fashion design gives me a unique perspective on user interfaces and experiences.</p>
+                            <p>I'm constantly learning and exploring new technologies to expand my skillset and create better solutions.</p>
                         </div>
-
-                        {/* Center Icon */}
-                        <motion.div
-                            className="flex justify-center my-8"
-                            variants={itemVariants}
-                        >
-                            <motion.div
-                                className="bg-white/10 backdrop-blur-lg border border-white/30 rounded-full p-4 shadow-xl"
-                                whileHover={{
-                                    scale: 1.1,
-                                    boxShadow: "0 0 20px rgba(255, 255, 255, 0.3)"
-                                }}
-                                animate={{
-                                    rotate: 360,
-                                }}
-                                transition={{
-                                    rotate: { duration: 20, repeat: Infinity, ease: "linear" },
-                                    hover: { duration: 0.3 }
-                                }}
-                            >
-                                <ExternalLink className="w-6 h-6 text-white" />
-                            </motion.div>
-                        </motion.div>
-
-                        {/* Bottom Note */}
-                        <motion.div
-                            className="text-white/60 text-sm italic"
-                            variants={itemVariants}
-                        >
-                            Some of my <span className="text-white/80 font-medium">favorite technologies</span>,
-                            <br />
-                            <span className="text-white/80 font-medium">topics</span>, or <span className="text-white/80 font-medium">tools</span> that I worked with
-                        </motion.div>
                     </motion.div>
 
                     {/* Profile Image Section */}
                     <motion.div
-                        className="flex justify-center lg:justify-end"
+                        className="flex justify-center"
                         variants={itemVariants}
                     >
                         <motion.div

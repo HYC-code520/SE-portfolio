@@ -94,4 +94,16 @@ body {
 /* Prevent body scroll only on individual pages (not home) */
 body:has([data-page]:not([data-page="home"])) {
   overflow: hidden !important;
-} 
+}
+
+/* Snap scrolling for main page */
+.snap-scroll-container {
+  scroll-snap-type: y mandatory;
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+.snap-scroll-container > section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}

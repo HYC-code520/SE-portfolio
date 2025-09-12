@@ -6,6 +6,7 @@ import { BackgroundScene } from '@/components/layout/BackgroundScene';
 import { HeroSection } from '@/components/sections/HeroSection';
 import { SideContent } from '@/components/sections/SideContent';
 import { AboutContent } from '@/components/sections/AboutContent';
+import { SkillsContent } from '@/components/sections/SkillsContent';
 import { ContactSection } from '@/components/sections/ContactSection';
 import { HeroContent } from '@/types';
 
@@ -25,7 +26,7 @@ export default function HomePage() {
     description: "",
     ctaText: "Learn More",
     ctaAction: () => {
-      // Smooth scroll to about section
+      // Scroll to about section with snap scrolling
       document.getElementById('about')?.scrollIntoView({ 
         behavior: 'smooth',
         block: 'start'
@@ -46,7 +47,7 @@ export default function HomePage() {
       </div>
 
       {/* Scrollable Content */}
-      <div className="relative z-10">
+      <div className="relative z-10 snap-scroll-container">
         {/* Hero Section */}
         <section id="home" className="h-screen relative">
           {/* Ariel Text GIF - only on home section, scrolls with content */}
@@ -75,6 +76,11 @@ export default function HomePage() {
           <AboutContent />
         </section>
 
+        {/* Skills Section */}
+        <section id="skills" className="h-screen relative">
+          <SkillsContent />
+        </section>
+
         {/* Projects Section */}
         <section id="projects" className="h-screen relative">
           <ProjectGallery />
@@ -87,4 +93,4 @@ export default function HomePage() {
       </div>
     </div>
   );
-} 
+}
