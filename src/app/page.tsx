@@ -1,14 +1,22 @@
 'use client';
 
 import React from 'react';
-import { Navigation } from '@/components/layout/Navigation';
+import dynamic from 'next/dynamic';
 import { BackgroundScene } from '@/components/layout/BackgroundScene';
 import { HeroSection } from '@/components/sections/HeroSection';
 import { SideContent } from '@/components/sections/SideContent';
-import { ProjectGallery } from '@/components/sections/ProjectGallery';
 import { AboutContent } from '@/components/sections/AboutContent';
 import { ContactSection } from '@/components/sections/ContactSection';
 import { HeroContent } from '@/types';
+
+// Dynamically import components that have client-side logic
+const Navigation = dynamic(() => import('@/components/layout/Navigation').then(mod => ({ default: mod.Navigation })), {
+  ssr: false
+});
+
+const ProjectGallery = dynamic(() => import('@/components/sections/ProjectGallery').then(mod => ({ default: mod.ProjectGallery })), {
+  ssr: false
+});
 
 export default function HomePage() {
   const heroContent: HeroContent = {

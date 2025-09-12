@@ -9,6 +9,7 @@ interface Project {
   title: string;
   description: string;
   image: string;
+  video?: string;
   technologies: string[];
   liveUrl?: string;
   githubUrl?: string;
@@ -66,6 +67,7 @@ const projects: Project[] = [
     title: 'Inner Child Mobile App',
     description: 'Mobile application for childhood memory preservation and sharing',
     image: '/project-4.jpg',
+    video: '/videos/ICS-app-demo.mp4',
     technologies: ['React Native', 'Firebase', 'Redux'],
     category: 'Mobile App',
     year: '2025',
@@ -120,9 +122,15 @@ const projects: Project[] = [
 
 export function ProjectGallery() {
   const [selectedProject, setSelectedProject] = useState<string>('1');
+  const [isClient, setIsClient] = useState(false);
   const rightContainerRef = useRef<HTMLDivElement>(null);
   const isScrollingRef = useRef<boolean>(false);
   const hasInitialized = useRef<boolean>(false);
+
+  // Ensure client-side rendering for video
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   // Initialize after component mounts to prevent viewport detection from overriding default selection
   useEffect(() => {
@@ -270,17 +278,32 @@ export function ProjectGallery() {
               }}
               onHoverStart={() => setSelectedProject(project.id)}
             >
-              {/* Project Image */}
-              <div className="aspect-[16/8] bg-gradient-to-br from-white/20 to-white/5 flex items-center justify-center">
-                <div className="text-white/40 text-center">
-                  <div className="w-24 h-24 bg-white/10 rounded-2xl mx-auto mb-4 flex items-center justify-center">
-                    <ExternalLink className="w-12 h-12 text-white/60" />
+              {/* Project Image/Video */}
+              <div className="aspect-[16/10] bg-gradient-to-br from-white/20 to-white/5 flex items-center justify-center overflow-hidden">
+                {isClient && project.video && project.id === '5' ? (
+                  <div className="w-full h-full relative">
+                    <video 
+                      className="w-full h-full object-contain"
+                      controls
+                      muted
+                      preload="metadata"
+                      playsInline
+                    >
+                      <source src="/videos/ICS-app-demo.mp4" type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
                   </div>
-                  <p className="text-lg font-medium">{project.title}</p>
-                  <p className="text-sm mt-2 text-white/60">
-                    Project Screenshot
-                  </p>
-                </div>
+                ) : (
+                  <div className="text-white/40 text-center">
+                    <div className="w-24 h-24 bg-white/10 rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                      <ExternalLink className="w-12 h-12 text-white/60" />
+                    </div>
+                    <p className="text-lg font-medium">{project.title}</p>
+                    <p className="text-sm mt-2 text-white/60">
+                      {project.video && project.id === '5' && !isClient ? 'Loading video...' : 'Project Screenshot'}
+                    </p>
+                  </div>
+                )}
               </div>
 
               {/* Project Info */}
