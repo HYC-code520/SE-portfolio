@@ -141,7 +141,7 @@ export function ProjectGallery() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Function to scroll to a specific project on the right side
+  // Function to scroll to a specific project with snap scrolling
   const scrollToProject = (projectId: string) => {
     const element = document.getElementById(`project-${projectId}`);
     const rightContainer = rightContainerRef.current;
@@ -150,19 +150,16 @@ export function ProjectGallery() {
       isScrollingRef.current = true; // Disable viewport detection
       setSelectedProject(projectId);
       
-      const containerRect = rightContainer.getBoundingClientRect();
-      const elementRect = element.getBoundingClientRect();
-      const scrollTop = rightContainer.scrollTop + elementRect.top - containerRect.top;
-      
-      rightContainer.scrollTo({
-        top: scrollTop,
-        behavior: 'smooth'
+      // With snap scrolling, we can directly scroll to the element
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
       });
       
       // Re-enable viewport detection after scroll completes
       setTimeout(() => {
         isScrollingRef.current = false;
-      }, 1000);
+      }, 500);
     }
   };
 
@@ -246,7 +243,7 @@ export function ProjectGallery() {
           
           <div 
             ref={rightContainerRef} 
-            className="h-full overflow-y-auto pl-6 pr-4 custom-scrollbar"
+            className="h-full overflow-y-auto pl-6 pr-4 custom-scrollbar project-snap-container"
             style={{
               maskImage: 'linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%)',
               WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%)'
