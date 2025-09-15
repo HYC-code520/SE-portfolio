@@ -132,20 +132,120 @@ export function ProjectGallery() {
   const isScrollingRef = useRef<boolean>(false);
   const hasInitialized = useRef<boolean>(false);
   const videoRefs = useRef<{[key: string]: HTMLVideoElement | null}>({});
+  const youtubeRefs = useRef<{[key: string]: HTMLIFrameElement | null}>({});
+  const userPausedVideos = useRef<{[key: string]: boolean}>({});
+  const youtubeApiLoaded = useRef<boolean>(false);
 
+  // Load YouTube API
+  const loadYouTubeAPI = () => {
+    if (youtubeApiLoaded.current) return;
+    
+    // Create script element
+    const tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/iframe_api';
+    const firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
+    
+    // Set up global callback
+    (window as any).onYouTubeIframeAPIReady = () => {
+      youtubeApiLoaded.current = true;
+      setupYouTubeVideos();
+    };
+  };
+  
+  // Set up YouTube videos with API
+  const setupYouTubeVideos = () => {
+    projects.forEach(project => {
+      if (project.youtubeId) {
+        const iframe = youtubeRefs.current[project.id];
+        if (iframe) {
+          // Create YouTube player
+          const player = new (window as any).YT.Player(iframe, {
+            events: {
+              'onStateChange': (event: any) => {
+                // YT.PlayerState.PAUSED = 2
+                if (event.data === 2) {
+                  userPausedVideos.current[project.id] = true;
+                  console.log(`User paused YouTube video ${project.id}`);
+                }
+                // YT.PlayerState.PLAYING = 1
+                else if (event.data === 1) {
+                  userPausedVideos.current[project.id] = false;
+                  console.log(`User played YouTube video ${project.id}`);
+                }
+              }
+            }
+          });
+        }
+      }
+    });
+  };
+  
   // Ensure client-side rendering for video
   useEffect(() => {
     setIsClient(true);
-  }, []);
+    
+    // Initialize all videos as not user-paused
+    projects.forEach(project => {
+      if (project.video || project.youtubeId) {
+        userPausedVideos.current[project.id] = false;
+      }
+    });
+    
+    // Load YouTube API if needed
+    if (isClient && projects.some(project => project.youtubeId)) {
+      loadYouTubeAPI();
+    }
+  }, [isClient]);
 
-  // Set up intersection observer for videos
+  // Set up intersection observer for videos and YouTube iframes
   useEffect(() => {
     if (!isClient) return;
     
     const options = {
       root: rightContainerRef.current,
       rootMargin: '0px',
-      threshold: 0.3 // Video must be 30% visible to be considered in view
+      threshold: 0.3 // Media must be 30% visible to be considered in view
+    };
+
+    // Create a map to store YouTube player instances
+    const ytPlayers: {[key: string]: any} = {};
+    
+    // Function to get YouTube player for a project
+    const getYouTubePlayer = (projectId: string) => {
+      // If we already have a player instance, return it
+      if (ytPlayers[projectId]) return ytPlayers[projectId];
+      
+      // If YouTube API is loaded and we have an iframe reference
+      if (youtubeApiLoaded.current && youtubeRefs.current[projectId]) {
+        try {
+          // Create a new player instance
+          const player = new (window as any).YT.Player(`youtube-${projectId}`, {
+            events: {
+              'onStateChange': (event: any) => {
+                // YT.PlayerState.PAUSED = 2
+                if (event.data === 2) {
+                  userPausedVideos.current[projectId] = true;
+                  console.log(`User paused YouTube video ${projectId}`);
+                }
+                // YT.PlayerState.PLAYING = 1
+                else if (event.data === 1) {
+                  userPausedVideos.current[projectId] = false;
+                  console.log(`User played YouTube video ${projectId}`);
+                }
+              }
+            }
+          });
+          
+          ytPlayers[projectId] = player;
+          return player;
+        } catch (error) {
+          console.error('Error creating YouTube player:', error);
+          return null;
+        }
+      }
+      
+      return null;
     };
 
     const handleIntersection = (entries: IntersectionObserverEntry[]) => {
@@ -153,10 +253,54 @@ export function ProjectGallery() {
         const projectId = entry.target.id.replace('project-', '');
         const videoElement = videoRefs.current[projectId];
         
+        // Handle HTML5 videos
         if (videoElement) {
-          if (!entry.isIntersecting && !videoElement.paused) {
-            // Pause video when out of view
+          if (entry.isIntersecting) {
+            // Only play video when in view if user hasn't manually paused it
+            if (!userPausedVideos.current[projectId]) {
+              videoElement.play().catch(e => console.log('Video play prevented:', e));
+            } else {
+              console.log(`Keeping video ${projectId} paused as user paused it`);
+            }
+          } else if (!entry.isIntersecting && !videoElement.paused) {
+            // Always pause video when out of view
             videoElement.pause();
+          }
+        }
+        
+        // Handle YouTube iframes
+        if (youtubeRefs.current[projectId]) {
+          // Try to get or create a YouTube player
+          const player = getYouTubePlayer(projectId);
+          
+          if (player && player.getPlayerState) {
+            if (entry.isIntersecting) {
+              // Only play if user hasn't manually paused
+              if (!userPausedVideos.current[projectId]) {
+                try {
+                  // YT.PlayerState.PAUSED = 2
+                  if (player.getPlayerState() === 2) {
+                    player.playVideo();
+                    console.log(`Playing YouTube video ${projectId}`);
+                  }
+                } catch (e) {
+                  console.error('Error playing YouTube video:', e);
+                }
+              } else {
+                console.log(`Keeping YouTube video ${projectId} paused as user paused it`);
+              }
+            } else {
+              // Always pause when out of view
+              try {
+                // YT.PlayerState.PLAYING = 1
+                if (player.getPlayerState() === 1) {
+                  player.pauseVideo();
+                  console.log(`Pausing YouTube video ${projectId} (out of view)`);
+                }
+              } catch (e) {
+                console.error('Error pausing YouTube video:', e);
+              }
+            }
           }
         }
       });
@@ -328,11 +472,15 @@ export function ProjectGallery() {
                   <div className="w-full h-full relative">
                     <iframe
                       className="w-full h-full object-contain"
-                      src={`https://www.youtube.com/embed/${project.youtubeId}`}
+                      src={`https://www.youtube.com/embed/${project.youtubeId}?enablejsapi=1&autoplay=0&origin=${encodeURIComponent(window.location.origin)}`}
                       title={project.title}
                       frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
+                      ref={(el) => {
+                        youtubeRefs.current[project.id] = el;
+                      }}
+                      id={`youtube-${project.id}`}
                     ></iframe>
                   </div>
                 ) : isClient && project.video ? (
@@ -345,6 +493,12 @@ export function ProjectGallery() {
                       playsInline
                       ref={(el) => {
                         videoRefs.current[project.id] = el;
+                      }}
+                      onPlay={() => {
+                        userPausedVideos.current[project.id] = false;
+                      }}
+                      onPause={() => {
+                        userPausedVideos.current[project.id] = true;
                       }}
                     >
                       <source src={project.video} type="video/mp4" />
