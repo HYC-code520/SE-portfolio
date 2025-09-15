@@ -8,7 +8,7 @@ interface BackgroundSceneProps {
 }
 
 export function BackgroundScene({ 
-  imageUrl = '/background.png',
+  imageUrl = '/Background.png',
   starImageUrl = '/star-bg.png',
   textGifUrl = '/Ariel-text.gif',
   showTextGif = true
