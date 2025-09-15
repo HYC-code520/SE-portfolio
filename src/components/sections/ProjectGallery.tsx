@@ -10,6 +10,7 @@ interface Project {
   description: string;
   image: string;
   video?: string;
+  youtubeId?: string;
   technologies: string[];
   liveUrl?: string;
   githubUrl?: string;
@@ -24,6 +25,7 @@ const projects: Project[] = [
     description: 'Professional personality assessment platform built for Psykhe, featuring comprehensive Big 5 personality testing with advanced analytics and user insights',
     image: '/project-psykhe.jpg',
     video: '/videos/Psykhe-AI-test.mp4',
+    youtubeId: 'MX2XpuNJvDA', // Psykhe Big 5 Personality Test demo video
     technologies: ['React', 'TypeScript', 'Next.js'],
     category: 'Professional',
     year: '2024',
@@ -68,11 +70,11 @@ const projects: Project[] = [
     title: 'Inner Child Mobile App',
     description: 'Mobile application for childhood memory preservation and sharing',
     image: '/project-4.jpg',
-    video: '/videos/ICS-app-demo.mp4',
+    youtubeId: 'dskgLA9qq6g', // Inner Child Sanctuary App Demo
     technologies: ['React Native', 'Firebase', 'Redux'],
     category: 'Mobile App',
     year: '2025',
-    liveUrl: '#',
+    liveUrl: '',
     githubUrl: 'https://github.com/HYC-code520/Inner-Child-Mobile-App'
   },
   {
@@ -80,6 +82,7 @@ const projects: Project[] = [
     title: 'Your Next Gift',
     description: 'Gift recommendation platform with personalized suggestions',
     image: '/project-5.jpg',
+    youtubeId: 'wKgx_Ml4CR0', // Your Next Gift Web Demo
     technologies: ['React', 'Express', 'PostgreSQL'],
     category: 'E-Commerce',
     year: '2025',
@@ -94,7 +97,7 @@ const projects: Project[] = [
     technologies: ['React', 'Node.js', 'MongoDB'],
     category: 'Health & Wellness',
     year: '2025',
-    liveUrl: '#',
+    liveUrl: '',
     githubUrl: 'https://github.com/HYC-code520/p3-feel-good-app'
   },
   {
@@ -102,11 +105,11 @@ const projects: Project[] = [
     title: 'LoveLog App',
     description: 'Relationship tracking app for couples to log memories and milestones with location mapping',
     image: '/project-7.jpg',
-    video: '/videos/LoveLogApp.mp4',
+    youtubeId: 'k2mnnkAwDrg', // LoveLog App Demo
     technologies: ['React Native', 'Flask', 'Python'],
     category: 'Lifestyle',
     year: '2025',
-    liveUrl: '#',
+    liveUrl: '',
     githubUrl: 'https://github.com/HYC-code520/LoveLog-App'
   },
   {
@@ -154,9 +157,6 @@ export function ProjectGallery() {
           if (!entry.isIntersecting && !videoElement.paused) {
             // Pause video when out of view
             videoElement.pause();
-          } else if (entry.isIntersecting && videoElement.paused) {
-            // Optional: Auto-play when in view (uncomment if desired)
-            // videoElement.play();
           }
         }
       });
@@ -324,7 +324,18 @@ export function ProjectGallery() {
             >
               {/* Project Image/Video */}
               <div className="aspect-[16/10] bg-gradient-to-br from-white/20 to-white/5 flex items-center justify-center overflow-hidden">
-                {isClient && project.video && (project.id === '5' || project.id === '1' || project.id === '8') ? (
+                {isClient && project.youtubeId ? (
+                  <div className="w-full h-full relative">
+                    <iframe
+                      className="w-full h-full object-contain"
+                      src={`https://www.youtube.com/embed/${project.youtubeId}`}
+                      title={project.title}
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                ) : isClient && project.video ? (
                   <div className="w-full h-full relative">
                     <video 
                       className="w-full h-full object-contain"
@@ -332,7 +343,6 @@ export function ProjectGallery() {
                       muted
                       preload="metadata"
                       playsInline
-                      poster={project.image}
                       ref={(el) => {
                         videoRefs.current[project.id] = el;
                       }}
@@ -348,7 +358,7 @@ export function ProjectGallery() {
                     </div>
                     <p className="text-lg font-medium">{project.title}</p>
                     <p className="text-sm mt-2 text-white/60">
-                      {project.video && (project.id === '5' || project.id === '1' || project.id === '8') && !isClient ? 'Loading video...' : 'Project Screenshot'}
+                      {(project.video || project.youtubeId) && !isClient ? 'Loading media...' : 'Project Screenshot'}
                     </p>
                   </div>
                 )}
