@@ -58,10 +58,10 @@ export function SkillsContent() {
                     </div>
                 </motion.div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+                <div className="grid grid-cols-1 gap-8 items-start">
                     {/* Skills Section */}
                     <motion.div
-                        className="lg:col-span-2 space-y-6"
+                        className="space-y-6"
                         variants={itemVariants}
                     >
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -94,26 +94,6 @@ export function SkillsContent() {
                             Some of my <span className="text-white/80 font-medium">favorite technologies</span>,
                             <br />
                             <span className="text-white/80 font-medium">topics</span>, or <span className="text-white/80 font-medium">tools</span> that I worked with
-                        </motion.div>
-                    </motion.div>
-
-                    {/* Profile Image Section */}
-                    <motion.div
-                        className="flex justify-center lg:justify-end"
-                        variants={itemVariants}
-                    >
-                        <motion.div
-                            className="relative w-64 h-64"
-                            whileHover={{ scale: 1.05 }}
-                            transition={{ duration: 0.3 }}
-                        >
-                            <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-white/5 rounded-full backdrop-blur-md border border-white/30 shadow-xl overflow-hidden">
-                                <div className="absolute inset-0 flex items-center justify-center">
-                                    <div className="w-24 h-24 bg-white/10 rounded-full mx-auto flex items-center justify-center">
-                                        <Star className="w-12 h-12 text-white/60 fill-current" />
-                                    </div>
-                                </div>
-                            </div>
                         </motion.div>
                     </motion.div>
                 </div>

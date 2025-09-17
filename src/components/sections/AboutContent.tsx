@@ -29,9 +29,9 @@ export function AboutContent() {
                 </motion.div>
 
                 {/* Main Content with Photo */}
-                <div className="flex flex-col md:flex-row gap-8 items-start">
+                <div className="flex flex-col md:flex-row gap-8 items-center md:items-start">
                     <motion.div
-                        className="flex-1"
+                        className="flex-1 w-full"
                         variants={itemVariants}
                     >
                         <div className="text-white/80 leading-relaxed space-y-6">
@@ -49,7 +49,7 @@ export function AboutContent() {
 
                     {/* Profile Image Section */}
                     <motion.div
-                        className="flex justify-center md:justify-end flex-shrink-0"
+                        className="flex justify-center w-full md:w-auto flex-shrink-0"
                         variants={itemVariants}
                     >
                         <motion.div
