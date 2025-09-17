@@ -86,32 +86,9 @@ export function SkillsContent() {
                             ))}
                         </div>
 
-                        {/* Center Icon */}
-                        <motion.div
-                            className="flex justify-center my-8"
-                            variants={itemVariants}
-                        >
-                            <motion.div
-                                className="bg-white/10 backdrop-blur-lg border border-white/30 rounded-full p-4 shadow-xl"
-                                whileHover={{
-                                    scale: 1.1,
-                                    boxShadow: "0 0 20px rgba(255, 255, 255, 0.3)"
-                                }}
-                                animate={{
-                                    rotate: 360,
-                                }}
-                                transition={{
-                                    rotate: { duration: 20, repeat: Infinity, ease: "linear" },
-                                    hover: { duration: 0.3 }
-                                }}
-                            >
-                                <ExternalLink className="w-6 h-6 text-white" />
-                            </motion.div>
-                        </motion.div>
-
                         {/* Bottom Note */}
                         <motion.div
-                            className="text-white/60 text-sm italic"
+                            className="text-white/60 text-sm italic mt-8"
                             variants={itemVariants}
                         >
                             Some of my <span className="text-white/80 font-medium">favorite technologies</span>,

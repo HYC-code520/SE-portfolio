@@ -66,17 +66,9 @@ export function HeroSection({ content }: HeroSectionProps) {
         {content.subtitle}
       </motion.p>
 
-      {/* Decorative Star */}
-      <motion.div
-        className="mb-40"
-        variants={itemVariants}
-      >
-        <Star className="w-12 h-12 text-white fill-current mx-auto" />
-      </motion.div>
-
       {/* Call to Action */}
       <motion.div
-      className="mt-36"
+      className="mt-56"
         variants={itemVariants}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}

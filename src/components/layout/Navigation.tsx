@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Menu, Home, Moon } from 'lucide-react';
+import { Menu, Home, Moon, Sun } from 'lucide-react';
 import { navItems } from '@/config/navigation';
 import { navVariants } from '@/config/animations';
 import Link from 'next/link';
@@ -17,6 +17,7 @@ interface NavigationProps {
 export function Navigation({ className, skipAnimation = false }: NavigationProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>('home');
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const pathname = usePathname();
   const isHomePage = pathname === '/';
 
@@ -53,6 +54,12 @@ export function Navigation({ className, skipAnimation = false }: NavigationProps
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isHomePage]);
 
+  // Communicate dark mode state to parent components via custom event
+  useEffect(() => {
+    const event = new CustomEvent('darkModeChange', { detail: isDarkMode });
+    window.dispatchEvent(event);
+  }, [isDarkMode]);
+
   const handleNavClick = (href: string) => {
     if (href.startsWith('#')) {
       // Handle anchor links with snap scrolling
@@ -85,8 +92,7 @@ export function Navigation({ className, skipAnimation = false }: NavigationProps
   };
 
   const handleDarkModeClick = () => {
-    // Placeholder function - add your dark mode logic here
-    console.log('Dark mode button clicked!');
+    setIsDarkMode(!isDarkMode);
   };
 
   return (
@@ -171,7 +177,7 @@ export function Navigation({ className, skipAnimation = false }: NavigationProps
           );
         })}
         
-        {/* Dark Mode Button Placeholder */}
+        {/* Dark Mode Button */}
         <motion.div
           initial={shouldAnimate ? { y: -20, opacity: 0 } : false}
           animate={shouldAnimate ? { y: 0, opacity: 1 } : false}
@@ -182,10 +188,12 @@ export function Navigation({ className, skipAnimation = false }: NavigationProps
           <Button
             variant="ghost"
             onClick={handleDarkModeClick}
-            className="text-white hover:bg-white/20 backdrop-blur-md rounded-2xl p-3 font-medium tracking-wide transition-all duration-300 shadow-lg border border-white/10 hover:border-white/20"
-            title="Dark Mode Toggle"
+            className={`text-white hover:bg-white/20 backdrop-blur-md rounded-2xl p-3 font-medium tracking-wide transition-all duration-300 shadow-lg ${
+              isDarkMode ? 'border border-white/30 bg-white/10' : 'border border-white/10 hover:border-white/20'
+            }`}
+            title={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
           >
-            <Moon className="w-5 h-5" />
+            {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
           </Button>
         </motion.div>
       </div>
@@ -253,10 +261,12 @@ export function Navigation({ className, skipAnimation = false }: NavigationProps
             <Button
               variant="ghost"
               onClick={handleDarkModeClick}
-              className="text-white hover:bg-white/20 rounded-2xl px-6 py-3 font-medium tracking-wide transition-all duration-300 justify-start w-full"
+              className={`text-white hover:bg-white/20 rounded-2xl px-6 py-3 font-medium tracking-wide transition-all duration-300 justify-start w-full ${
+                isDarkMode ? 'bg-white/10 border border-white/20' : ''
+              }`}
             >
-              <Moon className="w-5 h-5 mr-2" />
-              Dark Mode
+              {isDarkMode ? <Sun className="w-5 h-5 mr-2" /> : <Moon className="w-5 h-5 mr-2" />}
+              {isDarkMode ? 'Light Mode' : 'Dark Mode'}
             </Button>
           </div>
         </motion.div>
