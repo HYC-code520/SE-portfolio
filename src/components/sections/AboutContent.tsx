@@ -26,34 +26,34 @@ export function AboutContent() {
                         <span className="text-white/90 text-xl font-medium">/About me</span>
                         <span className="text-white/60 text-lg">...</span>
                     </div>
-
-                    <div className="text-white/80 leading-relaxed">
-                        <p className="text-white text-lg mb-4 leading-relaxed">I'm Ariel — a developer, maker, and cat enthusiast.</p>
-                        <p className="text-white/70 text-sm mb-6 leading-relaxed">I used to work in fashion design, and now I use code as my new creative tool. I love building apps that are thoughtful, playful, and easy to use.</p>
-                        <p className="text-white/70 text-sm leading-relaxed">When I'm not coding, you can find me doing DIY projects, experimenting with new ideas, or filming my cats' latest adventures. I'm always curious, always creating, and always looking for new ways to mix creativity with tech.</p>
-                    </div>
                 </motion.div>
 
-                {/* Profile Section */}
-                <div className="flex flex-col md:flex-row gap-8 items-center">
+                {/* Main Content with Photo */}
+                <div className="flex flex-col md:flex-row gap-8 items-start">
                     <motion.div
                         className="flex-1"
                         variants={itemVariants}
                     >
-                        <div className="text-white/80 leading-relaxed">
-                            <p className="text-white text-sm mb-4 leading-relaxed">I believe in creating digital experiences that are both beautiful and functional.</p>
-                            <p className="text-white/70 text-sm mb-4 leading-relaxed">My background in fashion design gives me a unique perspective on user interfaces and experiences.</p>
-                            <p className="text-white/70 text-sm leading-relaxed">I'm constantly learning and exploring new technologies to expand my skillset and create better solutions.</p>
+                        <div className="text-white/80 leading-relaxed space-y-6">
+                            <p className="text-white text-lg leading-relaxed">I'm Ariel — a developer, maker, and cat enthusiast.</p>
+                            <p className="text-white/70 text-sm leading-relaxed">I used to work in fashion design, and now I use code as my new creative tool. I love building apps that are thoughtful, playful, and easy to use.</p>
+                            <p className="text-white/70 text-sm leading-relaxed">When I'm not coding, you can find me doing DIY projects, experimenting with new ideas, or filming my cats' latest adventures. I'm always curious, always creating, and always looking for new ways to mix creativity with tech.</p>
+                            
+                            <div className="pt-4 space-y-4">
+                                <p className="text-white text-sm leading-relaxed">I believe in creating digital experiences that are both beautiful and functional.</p>
+                                <p className="text-white/70 text-sm leading-relaxed">My background in fashion design gives me a unique perspective on user interfaces and experiences.</p>
+                                <p className="text-white/70 text-sm leading-relaxed">I'm constantly learning and exploring new technologies to expand my skillset and create better solutions.</p>
+                            </div>
                         </div>
                     </motion.div>
 
                     {/* Profile Image Section */}
                     <motion.div
-                        className="flex justify-center"
+                        className="flex justify-center md:justify-end flex-shrink-0"
                         variants={itemVariants}
                     >
                         <motion.div
-                            className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-4 shadow-xl max-w-sm"
+                            className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-3 shadow-xl max-w-xs"
                             whileHover={{
                                 scale: 1.05,
                                 boxShadow: "0 0 40px rgba(255, 255, 255, 0.15)"
@@ -61,10 +61,10 @@ export function AboutContent() {
                             transition={{ duration: 0.3 }}
                         >
                             <div className="aspect-[3/4] bg-gradient-to-br from-white/20 to-white/5 rounded-xl overflow-hidden">
-                                {/* Profile image - replace with your actual image */}
+                                {/* Profile image - your actual image */}
                                 <img
-                                    src="/profile-placeholder.jpg"
-                                    alt="Profile"
+                                    src="/Porfolio-profile.JPG"
+                                    alt="Ariel Chen - Portfolio Profile"
                                     className="w-full h-full object-cover"
                                     onError={(e) => {
                                         // Fallback if image doesn't exist

@@ -72,7 +72,7 @@ export default function HomePage() {
         </section>
 
         {/* About Section */}
-        <section id="about" className="min-h-screen h-screen md:h-screen relative">
+        <section id="about" className="min-h-screen py-8 md:h-screen relative">
           <AboutContent />
         </section>
 
