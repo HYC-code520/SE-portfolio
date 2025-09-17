@@ -11,6 +11,7 @@ interface Project {
   image: string;
   video?: string;
   youtubeId?: string;
+  loomUrl?: string; // Add this for Loom videos
   technologies: string[];
   liveUrl?: string;
   githubUrl?: string;
@@ -86,7 +87,7 @@ const projects: Project[] = [
     technologies: ['React', 'Express', 'PostgreSQL'],
     category: 'E-Commerce',
     year: '2025',
-    liveUrl: '#',
+    liveUrl: 'https://your-next-gift-beta.vercel.app/',
     githubUrl: 'https://github.com/HYC-code520/your-next-gift'
   },
   {
@@ -117,10 +118,10 @@ const projects: Project[] = [
     title: 'PawHub',
     description: 'Pet care management platform for pet owners and veterinarians',
     image: '/project-8.jpg',
+    loomUrl: 'https://www.loom.com/share/493ee2ee1e6f46e49aefd86f74839990?sid=647cd8ef-1fe0-48a5-ac74-3d1747ea70c2',
     technologies: ['React', 'Express', 'PostgreSQL'],
     category: 'Pet Care',
     year: '2025',
-    liveUrl: '#',
     githubUrl: 'https://github.com/HYC-code520/PawHub'
   }
 ];
@@ -187,13 +188,13 @@ export function ProjectGallery() {
     
     // Initialize all videos as not user-paused
     projects.forEach(project => {
-      if (project.video || project.youtubeId) {
+      if (project.video || project.youtubeId || project.loomUrl) {
         userPausedVideos.current[project.id] = false;
       }
     });
     
     // Load YouTube API if needed
-    if (isClient && projects.some(project => project.youtubeId)) {
+    if (isClient && projects.some(project => project.youtubeId || project.loomUrl)) {
       loadYouTubeAPI();
     }
   }, [isClient]);
@@ -483,6 +484,17 @@ export function ProjectGallery() {
                       id={`youtube-${project.id}`}
                     ></iframe>
                   </div>
+                ) : isClient && project.loomUrl ? (
+                  <div className="w-full h-full relative">
+                    <iframe
+                      className="w-full h-full object-contain"
+                      src={`https://www.loom.com/embed/${project.loomUrl.split('/').pop()?.split('?')[0]}?sid=${project.loomUrl.split('sid=')[1]}`}
+                      title={project.title}
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    ></iframe>
+                  </div>
                 ) : isClient && project.video ? (
                   <div className="w-full h-full relative">
                     <video 
@@ -512,7 +524,7 @@ export function ProjectGallery() {
                     </div>
                     <p className="text-lg font-medium">{project.title}</p>
                     <p className="text-sm mt-2 text-white/60">
-                      {(project.video || project.youtubeId) && !isClient ? 'Loading media...' : 'Project Screenshot'}
+                      {(project.video || project.youtubeId || project.loomUrl) && !isClient ? 'Loading media...' : 'Project Screenshot'}
                     </p>
                   </div>
                 )}
