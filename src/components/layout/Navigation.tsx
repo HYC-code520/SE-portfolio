@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Menu, Home } from 'lucide-react';
+import { Menu, Home, Moon } from 'lucide-react';
 import { navItems } from '@/config/navigation';
 import { navVariants } from '@/config/animations';
 import Link from 'next/link';
@@ -82,6 +82,11 @@ export function Navigation({ className, skipAnimation = false }: NavigationProps
       // Update active section immediately for better UX
       setActiveSection('home');
     }
+  };
+
+  const handleDarkModeClick = () => {
+    // Placeholder function - add your dark mode logic here
+    console.log('Dark mode button clicked!');
   };
 
   return (
@@ -165,6 +170,24 @@ export function Navigation({ className, skipAnimation = false }: NavigationProps
             </motion.div>
           );
         })}
+        
+        {/* Dark Mode Button Placeholder */}
+        <motion.div
+          initial={shouldAnimate ? { y: -20, opacity: 0 } : false}
+          animate={shouldAnimate ? { y: 0, opacity: 1 } : false}
+          transition={shouldAnimate ? { delay: 0.2 + navItems.length * 0.1, duration: 0.6 } : undefined}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <Button
+            variant="ghost"
+            onClick={handleDarkModeClick}
+            className="text-white hover:bg-white/20 backdrop-blur-md rounded-2xl p-3 font-medium tracking-wide transition-all duration-300 shadow-lg border border-white/10 hover:border-white/20"
+            title="Dark Mode Toggle"
+          >
+            <Moon className="w-5 h-5" />
+          </Button>
+        </motion.div>
       </div>
 
       {/* Mobile Menu Button - Always on right */}
@@ -225,6 +248,16 @@ export function Navigation({ className, skipAnimation = false }: NavigationProps
                 </div>
               );
             })}
+            
+            {/* Dark Mode Button in Mobile Menu */}
+            <Button
+              variant="ghost"
+              onClick={handleDarkModeClick}
+              className="text-white hover:bg-white/20 rounded-2xl px-6 py-3 font-medium tracking-wide transition-all duration-300 justify-start w-full"
+            >
+              <Moon className="w-5 h-5 mr-2" />
+              Dark Mode
+            </Button>
           </div>
         </motion.div>
       )}
