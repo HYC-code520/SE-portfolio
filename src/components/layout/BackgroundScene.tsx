@@ -13,7 +13,7 @@ export function BackgroundScene({
   textGifUrl = '/Ariel-text.gif',
   showTextGif = true
 }: BackgroundSceneProps) {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
   // Listen for dark mode changes from Navigation component
   useEffect(() => {
@@ -45,7 +45,15 @@ export function BackgroundScene({
       
       {/* Dark background for dark mode - Lower layer */}
       {isDarkMode && (
-        <div className="absolute inset-0 bg-black/80 transition-all duration-500 ease-in-out z-0" />
+        <div 
+          className="absolute inset-0 bg-center bg-no-repeat transition-all duration-500 ease-in-out z-0"
+          style={{
+            backgroundImage: `url('/Dark-Background.png')`,
+            backgroundColor: '#0a0a0a',
+            backgroundPosition: 'center',
+            backgroundSize: 'cover'
+          }}
+        />
       )}
       
       {/* Original Responsive overlay - Hide in dark mode */}
@@ -53,15 +61,17 @@ export function BackgroundScene({
         <div className="absolute inset-0 bg-gradient-to-br from-black/5 via-transparent to-black/10 z-10" />
       )}
       
-      {/* Star Background Layer - Always visible and on top */}
-      <div 
-        className="absolute inset-0 bg-center bg-no-repeat transition-all duration-500 ease-in-out z-20"
-        style={{
-          backgroundImage: `url('${starImageUrl}')`,
-          backgroundPosition: 'center',
-          backgroundSize: '800px'
-        }}
-      />
+      {/* Star Background Layer - Only visible in light mode */}
+      {!isDarkMode && (
+        <div 
+          className="absolute inset-0 bg-center bg-no-repeat transition-all duration-500 ease-in-out z-20"
+          style={{
+            backgroundImage: `url('${starImageUrl}')`,
+            backgroundPosition: 'center',
+            backgroundSize: '800px'
+          }}
+        />
+      )}
       
       {/* ARIEL Text GIF - Only show when showTextGif is true - Highest layer */}
       {showTextGif && (

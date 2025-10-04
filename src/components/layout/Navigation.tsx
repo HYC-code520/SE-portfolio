@@ -17,7 +17,7 @@ interface NavigationProps {
 export function Navigation({ className, skipAnimation = false }: NavigationProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>('home');
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
   const pathname = usePathname();
   const isHomePage = pathname === '/';
 

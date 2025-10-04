@@ -87,7 +87,6 @@ const projects: Project[] = [
     technologies: ['React', 'Node.js', 'MongoDB'],
     category: 'FinTech',
     year: '2025',
-    liveUrl: '#',
     githubUrl: 'https://github.com/HYC-code520/Finance-Tech'
   },
   {
@@ -98,7 +97,6 @@ const projects: Project[] = [
     technologies: ['React', 'Python', 'APIs'],
     category: 'Climate Tech',
     year: '2025',
-    liveUrl: '#',
     githubUrl: 'https://github.com/HYC-code520/ClimateTech'
   },
   {
@@ -109,7 +107,6 @@ const projects: Project[] = [
     technologies: ['JavaScript', 'CSS', 'HTML'],
     category: 'E-Commerce',
     year: '2025',
-    liveUrl: '#',
     githubUrl: 'https://github.com/HYC-code520/Fix-StitchFix'
   },
   {
@@ -529,12 +526,12 @@ export function ProjectGallery() {
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/30 rounded-lg px-6 py-3 text-white/90 font-medium transition-all duration-200"
+                      className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500/20 to-blue-500/20 hover:from-purple-500/30 hover:to-blue-500/30 border border-white/30 rounded-lg px-6 py-3 text-white/90 font-medium transition-all duration-200 shadow-lg"
                       whileHover={{ scale: 1.05, backgroundColor: 'rgba(255, 255, 255, 0.25)' }}
                       whileTap={{ scale: 0.95 }}
                     >
                       <Github className="w-5 h-5" />
-                      View on GitHub
+                      View Source Code
                     </motion.a>
                   </div>
                 ) : (
