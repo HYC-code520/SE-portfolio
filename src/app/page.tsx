@@ -24,7 +24,7 @@ export default function HomePage() {
     title: " ",
     subtitle: " ",
     description: "",
-    ctaText: "Learn More",
+    ctaText: "Discover My Story",
     ctaAction: () => {
       // Scroll to about section with snap scrolling
       document.getElementById('about')?.scrollIntoView({ 

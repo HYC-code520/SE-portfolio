@@ -30,8 +30,54 @@ const projects: Project[] = [
     technologies: ['React', 'TypeScript', 'Next.js'],
     category: 'Professional',
     year: '2024',
-    liveUrl: 'https://psykhe.com/big-5-personality-test',
-    githubUrl: '#'
+    liveUrl: 'https://psykhe.com/big-5-personality-test'
+  },
+  {
+    id: '5',
+    title: 'Inner Child Mobile App',
+    description: 'Mobile application for childhood memory preservation and sharing',
+    image: '/project-4.jpg',
+    youtubeId: 'dskgLA9qq6g', // Inner Child Sanctuary App Demo
+    technologies: ['React Native', 'Firebase', 'Redux'],
+    category: 'Mobile App',
+    year: '2025',
+    liveUrl: '',
+    githubUrl: 'https://github.com/HYC-code520/Inner-Child-Mobile-App'
+  },
+  {
+    id: '6',
+    title: 'Your Next Gift',
+    description: 'Gift recommendation platform with personalized suggestions',
+    image: '/project-5.jpg',
+    youtubeId: 'wKgx_Ml4CR0', // Your Next Gift Web Demo
+    technologies: ['React', 'Express', 'PostgreSQL'],
+    category: 'E-Commerce',
+    year: '2025',
+    liveUrl: 'https://your-next-gift-beta.vercel.app/',
+    githubUrl: 'https://github.com/HYC-code520/your-next-gift'
+  },
+  {
+    id: '8',
+    title: 'LoveLog App',
+    description: 'Relationship tracking app for couples to log memories and milestones with location mapping',
+    image: '/project-7.jpg',
+    youtubeId: 'k2mnnkAwDrg', // LoveLog App Demo
+    technologies: ['React Native', 'Flask', 'Python'],
+    category: 'Lifestyle',
+    year: '2025',
+    liveUrl: '',
+    githubUrl: 'https://github.com/HYC-code520/LoveLog-App'
+  },
+  {
+    id: '9',
+    title: 'PawHub',
+    description: 'Pet care management platform for pet owners and veterinarians',
+    image: '/project-8.jpg',
+    loomUrl: 'https://www.loom.com/share/493ee2ee1e6f46e49aefd86f74839990?sid=647cd8ef-1fe0-48a5-ac74-3d1747ea70c2',
+    technologies: ['React', 'Express', 'PostgreSQL'],
+    category: 'Pet Care',
+    year: '2025',
+    githubUrl: 'https://github.com/HYC-code520/PawHub'
   },
   {
     id: '2',
@@ -67,30 +113,6 @@ const projects: Project[] = [
     githubUrl: 'https://github.com/HYC-code520/Fix-StitchFix'
   },
   {
-    id: '5',
-    title: 'Inner Child Mobile App',
-    description: 'Mobile application for childhood memory preservation and sharing',
-    image: '/project-4.jpg',
-    youtubeId: 'dskgLA9qq6g', // Inner Child Sanctuary App Demo
-    technologies: ['React Native', 'Firebase', 'Redux'],
-    category: 'Mobile App',
-    year: '2025',
-    liveUrl: '',
-    githubUrl: 'https://github.com/HYC-code520/Inner-Child-Mobile-App'
-  },
-  {
-    id: '6',
-    title: 'Your Next Gift',
-    description: 'Gift recommendation platform with personalized suggestions',
-    image: '/project-5.jpg',
-    youtubeId: 'wKgx_Ml4CR0', // Your Next Gift Web Demo
-    technologies: ['React', 'Express', 'PostgreSQL'],
-    category: 'E-Commerce',
-    year: '2025',
-    liveUrl: 'https://your-next-gift-beta.vercel.app/',
-    githubUrl: 'https://github.com/HYC-code520/your-next-gift'
-  },
-  {
     id: '7',
     title: 'Feel Good App',
     description: 'Mental wellness application for mood tracking and self-care',
@@ -100,29 +122,6 @@ const projects: Project[] = [
     year: '2025',
     liveUrl: '',
     githubUrl: 'https://github.com/HYC-code520/p3-feel-good-app'
-  },
-  {
-    id: '8',
-    title: 'LoveLog App',
-    description: 'Relationship tracking app for couples to log memories and milestones with location mapping',
-    image: '/project-7.jpg',
-    youtubeId: 'k2mnnkAwDrg', // LoveLog App Demo
-    technologies: ['React Native', 'Flask', 'Python'],
-    category: 'Lifestyle',
-    year: '2025',
-    liveUrl: '',
-    githubUrl: 'https://github.com/HYC-code520/LoveLog-App'
-  },
-  {
-    id: '9',
-    title: 'PawHub',
-    description: 'Pet care management platform for pet owners and veterinarians',
-    image: '/project-8.jpg',
-    loomUrl: 'https://www.loom.com/share/493ee2ee1e6f46e49aefd86f74839990?sid=647cd8ef-1fe0-48a5-ac74-3d1747ea70c2',
-    technologies: ['React', 'Express', 'PostgreSQL'],
-    category: 'Pet Care',
-    year: '2025',
-    githubUrl: 'https://github.com/HYC-code520/PawHub'
   }
 ];
 
@@ -516,6 +515,27 @@ export function ProjectGallery() {
                       <source src={project.video} type="video/mp4" />
                       Your browser does not support the video tag.
                     </video>
+                  </div>
+                ) : project.githubUrl && !project.video && !project.youtubeId && !project.loomUrl ? (
+                  <div className="text-white/40 text-center p-8">
+                    <div className="w-24 h-24 bg-white/10 rounded-2xl mx-auto mb-6 flex items-center justify-center">
+                      <Github className="w-12 h-12 text-white/60" />
+                    </div>
+                    <p className="text-xl font-medium text-white/80 mb-3">Demo Video Coming Soon!</p>
+                    <p className="text-sm text-white/60 mb-6">
+                      In the meantime, explore the project code and documentation
+                    </p>
+                    <motion.a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/30 rounded-lg px-6 py-3 text-white/90 font-medium transition-all duration-200"
+                      whileHover={{ scale: 1.05, backgroundColor: 'rgba(255, 255, 255, 0.25)' }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <Github className="w-5 h-5" />
+                      View on GitHub
+                    </motion.a>
                   </div>
                 ) : (
                   <div className="text-white/40 text-center">
