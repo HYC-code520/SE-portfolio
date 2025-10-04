@@ -9,6 +9,7 @@ import { AboutContent } from '@/components/sections/AboutContent';
 import { SkillsContent } from '@/components/sections/SkillsContent';
 import { ContactSection } from '@/components/sections/ContactSection';
 import { HeroContent } from '@/types';
+import { useDarkMode } from '@/contexts/DarkModeContext';
 
 // Dynamically import components that have client-side logic
 const Navigation = dynamic(() => import('@/components/layout/Navigation').then(mod => ({ default: mod.Navigation })), {
@@ -20,6 +21,8 @@ const ProjectGallery = dynamic(() => import('@/components/sections/ProjectGaller
 });
 
 export default function HomePage() {
+  const { isDarkMode } = useDarkMode();
+
   const heroContent: HeroContent = {
     title: " ",
     subtitle: " ",
@@ -27,7 +30,7 @@ export default function HomePage() {
     ctaText: "Discover My Story",
     ctaAction: () => {
       // Scroll to about section with snap scrolling
-      document.getElementById('about')?.scrollIntoView({ 
+      document.getElementById('about')?.scrollIntoView({
         behavior: 'smooth',
         block: 'start'
       });
@@ -52,18 +55,18 @@ export default function HomePage() {
         <section id="home" className="h-screen relative">
           {/* Ariel Text GIF - only on home section, scrolls with content */}
           <div className="absolute inset-0 z-0">
-            <div 
+            <div
               className="absolute inset-0 bg-center bg-no-repeat transition-all duration-500 ease-in-out
                          bg-[length:500px] sm:bg-[length:600px] md:bg-[length:800px] lg:bg-[length:1000px] xl:bg-[length:1200px]"
               style={{
-                backgroundImage: `url('/Ariel-text.gif')`,
+                backgroundImage: `url('${isDarkMode ? '/Ariel-text-dark-mode.gif' : '/Ariel-text-light-mode.gif'}')`,
                 backgroundPosition: 'center'
               }}
             />
           </div>
           <div className="relative z-10">
             <HeroSection content={heroContent} />
-            <SideContent 
+            <SideContent
               description={heroContent.description}
               pageNumber="20"
               totalPages="25"

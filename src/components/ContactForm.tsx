@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Send, CheckCircle, AlertCircle } from 'lucide-react';
+import { useDarkMode } from '@/contexts/DarkModeContext';
 
 interface ContactFormProps {
   onSubmit?: (data: FormData) => Promise<boolean>;
@@ -16,6 +17,22 @@ interface FormData {
 }
 
 export function ContactForm({ onSubmit }: ContactFormProps) {
+  const { isDarkMode } = useDarkMode();
+  
+  // Dynamic colors based on theme
+  const textColor = isDarkMode ? 'text-white/90' : 'text-black/90';
+  const textColorBold = isDarkMode ? 'text-white' : 'text-black';
+  const bgColor = isDarkMode ? 'bg-white/5' : 'bg-black/5';
+  const borderColor = isDarkMode ? 'border-white/20' : 'border-black/20';
+  const borderColorFocus = isDarkMode ? 'focus:ring-white/30 focus:border-transparent' : 'focus:ring-black/30 focus:border-transparent';
+  const placeholderColor = isDarkMode ? 'placeholder-white/50' : 'placeholder-black/50';
+  const buttonBg = isDarkMode ? 'from-white/20 to-white/0' : 'from-black/20 to-black/0';
+  const buttonBorder = isDarkMode ? 'border-white/30' : 'border-black/30';
+  const buttonShadow = isDarkMode ? 'shadow-black/20' : 'shadow-white/20';
+  const buttonBoxShadow = isDarkMode 
+    ? '[box-shadow:0_0_2px_#fff_inset,_0_0_10px_#fff_inset] hover:[box-shadow:0_0_2px_#fff_inset,_0_0_15px_#fff_inset,_0_0_30px_#888]'
+    : '[box-shadow:0_0_2px_#000_inset,_0_0_10px_#000_inset] hover:[box-shadow:0_0_2px_#000_inset,_0_0_15px_#000_inset,_0_0_30px_#888]';
+
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -62,7 +79,7 @@ export function ContactForm({ onSubmit }: ContactFormProps) {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div>
-        <label htmlFor="name" className="block text-white/90 text-sm font-medium mb-2">
+        <label htmlFor="name" className={`block ${textColor} text-sm font-medium mb-2`}>
           Name
         </label>
         <input
@@ -73,13 +90,13 @@ export function ContactForm({ onSubmit }: ContactFormProps) {
           onChange={handleInputChange}
           required
           disabled={isSubmitting}
-          className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-transparent disabled:opacity-50"
+          className={`w-full px-4 py-3 ${bgColor} border ${borderColor} rounded-lg ${textColorBold} ${placeholderColor} focus:outline-none focus:ring-2 ${borderColorFocus} disabled:opacity-50`}
           placeholder="Your full name"
         />
       </div>
 
       <div>
-        <label htmlFor="email" className="block text-white/90 text-sm font-medium mb-2">
+        <label htmlFor="email" className={`block ${textColor} text-sm font-medium mb-2`}>
           Email
         </label>
         <input
@@ -90,13 +107,13 @@ export function ContactForm({ onSubmit }: ContactFormProps) {
           onChange={handleInputChange}
           required
           disabled={isSubmitting}
-          className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-transparent disabled:opacity-50"
+          className={`w-full px-4 py-3 ${bgColor} border ${borderColor} rounded-lg ${textColorBold} ${placeholderColor} focus:outline-none focus:ring-2 ${borderColorFocus} disabled:opacity-50`}
           placeholder="your.email@example.com"
         />
       </div>
 
       <div>
-        <label htmlFor="message" className="block text-white/90 text-sm font-medium mb-2">
+        <label htmlFor="message" className={`block ${textColor} text-sm font-medium mb-2`}>
           Message
         </label>
         <textarea
@@ -107,7 +124,7 @@ export function ContactForm({ onSubmit }: ContactFormProps) {
           required
           disabled={isSubmitting}
           rows={5}
-          className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-transparent resize-none disabled:opacity-50"
+          className={`w-full px-4 py-3 ${bgColor} border ${borderColor} rounded-lg ${textColorBold} ${placeholderColor} focus:outline-none focus:ring-2 ${borderColorFocus} resize-none disabled:opacity-50`}
           placeholder="Tell me about your project..."
         />
       </div>
@@ -142,7 +159,7 @@ export function ContactForm({ onSubmit }: ContactFormProps) {
         <Button 
           type="submit"
           disabled={isSubmitting}
-          className="w-full bg-gradient-to-b from-white/20 to-white/0 text-white backdrop-blur-lg border border-white/30 shadow-xl shadow-black/20 rounded-full text-lg font-semibold tracking-wide transition-all duration-300 py-4 [box-shadow:0_0_2px_#fff_inset,_0_0_10px_#fff_inset] hover:[box-shadow:0_0_2px_#fff_inset,_0_0_15px_#fff_inset,_0_0_30px_#888] disabled:opacity-50 disabled:cursor-not-allowed"
+          className={`w-full bg-gradient-to-b ${buttonBg} ${textColorBold} backdrop-blur-lg border ${buttonBorder} shadow-xl ${buttonShadow} rounded-full text-lg font-semibold tracking-wide transition-all duration-300 py-4 ${buttonBoxShadow} disabled:opacity-50 disabled:cursor-not-allowed`}
         >
           {isSubmitting ? (
             <div className="flex items-center space-x-2">

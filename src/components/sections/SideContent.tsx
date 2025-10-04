@@ -4,6 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { socialLinks } from '@/config/social';
 import { sideContentVariants } from '@/config/animations';
+import { useDarkMode } from '@/contexts/DarkModeContext';
 
 interface SideContentProps {
   description: string;
@@ -16,6 +17,15 @@ export function SideContent({
   pageNumber = "20", 
   totalPages = "25" 
 }: SideContentProps) {
+  const { isDarkMode } = useDarkMode();
+  
+  // Dynamic colors based on theme
+  const textColor = isDarkMode ? 'text-white/80' : 'text-black/80';
+  const textColorBold = isDarkMode ? 'text-white' : 'text-black';
+  const iconColor = isDarkMode ? 'text-white' : 'text-black';
+  const bgColor = isDarkMode ? 'bg-white/10' : 'bg-black/10';
+  const bgColorHover = isDarkMode ? 'hover:bg-white/20' : 'hover:bg-black/20';
+  const borderColor = isDarkMode ? 'border-white/20' : 'border-black/20';
   return (
     <>
       {/* Left Side Content */}
@@ -27,7 +37,7 @@ export function SideContent({
         transition={{ delay: 1, duration: 0.8 }}
       >
         <div className="mb-8">
-          <p className="text-white/80 text-sm md:text-base leading-relaxed max-w-xs">
+          <p className={`${textColor} text-sm md:text-base leading-relaxed max-w-xs`}>
             {description}
           </p>
         </div>
@@ -49,9 +59,9 @@ export function SideContent({
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center cursor-pointer transition-all duration-300 hover:bg-white/20 shadow-lg"
+                  className={`w-12 h-12 rounded-full ${bgColor} backdrop-blur-md border ${borderColor} flex items-center justify-center cursor-pointer transition-all duration-300 ${bgColorHover} shadow-lg`}
                 >
-                  <Icon className="w-5 h-5 text-white" />
+                  <Icon className={`w-5 h-5 ${iconColor}`} />
                 </a>
               </motion.div>
             );
@@ -67,8 +77,8 @@ export function SideContent({
         transition={{ delay: 1, duration: 0.8 }}
       >
         <div className="text-right">
-          <div className="text-4xl md:text-5xl font-bold text-white">{pageNumber}</div>
-          <div className="text-4xl md:text-5xl font-bold text-white">/{totalPages}</div>
+          <div className={`text-4xl md:text-5xl font-bold ${textColorBold}`}>{pageNumber}</div>
+          <div className={`text-4xl md:text-5xl font-bold ${textColorBold}`}>/{totalPages}</div>
         </div>
       </motion.div>
     </>

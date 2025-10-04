@@ -8,6 +8,7 @@ import { navItems } from '@/config/navigation';
 import { navVariants } from '@/config/animations';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useDarkMode } from '@/contexts/DarkModeContext';
 
 interface NavigationProps {
   className?: string;
@@ -17,9 +18,18 @@ interface NavigationProps {
 export function Navigation({ className, skipAnimation = false }: NavigationProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>('home');
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const { isDarkMode, toggleDarkMode } = useDarkMode();
   const pathname = usePathname();
   const isHomePage = pathname === '/';
+
+  // Dynamic text colors based on theme
+  const textColor = isDarkMode ? 'text-white' : 'text-black';
+  const textColorHover = isDarkMode ? 'hover:bg-white/20' : 'hover:bg-black/20';
+  const borderColor = isDarkMode ? 'border-white/20' : 'border-black/20';
+  const borderColorActive = isDarkMode ? 'border-white/30' : 'border-black/30';
+  const bgColor = isDarkMode ? 'bg-white/10' : 'bg-black/10';
+  const bgColorHover = isDarkMode ? 'hover:bg-white/20' : 'hover:bg-black/20';
+  const iconColor = isDarkMode ? 'text-white' : 'text-black';
 
   // Only animate on home page unless skipAnimation is explicitly set
   const shouldAnimate = isHomePage && !skipAnimation;
@@ -54,11 +64,7 @@ export function Navigation({ className, skipAnimation = false }: NavigationProps
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isHomePage]);
 
-  // Communicate dark mode state to parent components via custom event
-  useEffect(() => {
-    const event = new CustomEvent('darkModeChange', { detail: isDarkMode });
-    window.dispatchEvent(event);
-  }, [isDarkMode]);
+  // No need for custom events anymore - using DarkModeContext
 
   const handleNavClick = (href: string) => {
     if (href.startsWith('#')) {
@@ -66,11 +72,11 @@ export function Navigation({ className, skipAnimation = false }: NavigationProps
       const element = document.getElementById(href.substring(1));
       if (element) {
         // Use scrollIntoView with smooth behavior for compatibility with snap scrolling
-        element.scrollIntoView({ 
+        element.scrollIntoView({
           behavior: 'smooth',
           block: 'start'
         });
-        
+
         // Update active section immediately for better UX
         setActiveSection(href.substring(1));
       }
@@ -81,22 +87,22 @@ export function Navigation({ className, skipAnimation = false }: NavigationProps
   const handleHomeClick = () => {
     if (isHomePage) {
       // If already on home page, scroll to top with snap scrolling
-      document.getElementById('home')?.scrollIntoView({ 
+      document.getElementById('home')?.scrollIntoView({
         behavior: 'smooth',
         block: 'start'
       });
-      
+
       // Update active section immediately for better UX
       setActiveSection('home');
     }
   };
 
   const handleDarkModeClick = () => {
-    setIsDarkMode(!isDarkMode);
+    toggleDarkMode();
   };
 
   return (
-    <motion.nav 
+    <motion.nav
       className={`relative z-50 flex justify-between items-center p-8 md:p-12 ${className}`}
       variants={shouldAnimate ? navVariants : undefined}
       initial={shouldAnimate ? "hidden" : false}
@@ -104,30 +110,29 @@ export function Navigation({ className, skipAnimation = false }: NavigationProps
       transition={shouldAnimate ? { duration: 0.8, ease: "easeOut" } : undefined}
     >
       {/* Home Button - Always show on left */}
-      <motion.div 
-        whileHover={{ scale: 1.05 }} 
+      <motion.div
+        whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
         {isHomePage ? (
-          <Button 
-            variant="ghost" 
+          <Button
+            variant="ghost"
             size="lg"
             onClick={handleHomeClick}
-            className={`text-white hover:bg-white/20 backdrop-blur-md border rounded-2xl px-6 py-3 font-medium tracking-wide shadow-lg transition-all duration-300 ${
-              activeSection === 'home' ? 'border-white/30 bg-white/10' : 'border-white/20 bg-white/10'
-            }`}
+            className={`${textColor} ${textColorHover} backdrop-blur-md border rounded-2xl px-6 py-3 font-medium tracking-wide shadow-lg transition-all duration-300 ${activeSection === 'home' ? `${borderColorActive} ${bgColor}` : `${borderColor} ${bgColor}`
+              }`}
           >
-            <Home className="w-5 h-5 mr-2" />
+            <Home className={`w-5 h-5 mr-2 ${iconColor}`} />
             Home
           </Button>
         ) : (
           <Link href="/">
-            <Button 
-              variant="ghost" 
+            <Button
+              variant="ghost"
               size="lg"
-              className="text-white bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 rounded-2xl px-6 py-3 font-medium tracking-wide shadow-lg transition-all duration-300"
+              className={`${textColor} ${bgColor} ${bgColorHover} backdrop-blur-md border ${borderColor} rounded-2xl px-6 py-3 font-medium tracking-wide shadow-lg transition-all duration-300`}
             >
-              <Home className="w-5 h-5 mr-2" />
+              <Home className={`w-5 h-5 mr-2 ${iconColor}`} />
               Home
             </Button>
           </Link>
@@ -138,12 +143,12 @@ export function Navigation({ className, skipAnimation = false }: NavigationProps
       <div className="hidden md:flex space-x-2">
         {navItems.map((item, index) => {
           // Determine if this nav item should be active
-          const isActive = isHomePage 
+          const isActive = isHomePage
             ? activeSection === item.href.substring(1) // On home page, check if current section matches
             : pathname === item.href.replace('#', '/'); // On other pages, check if pathname matches
-          
+
           return (
-            <motion.div 
+            <motion.div
               key={item.label}
               initial={shouldAnimate ? { y: -20, opacity: 0 } : false}
               animate={shouldAnimate ? { y: 0, opacity: 1 } : false}
@@ -152,22 +157,20 @@ export function Navigation({ className, skipAnimation = false }: NavigationProps
               whileTap={{ scale: 0.95 }}
             >
               {isHomePage && item.href.startsWith('#') ? (
-                <Button 
+                <Button
                   variant="ghost"
                   onClick={() => handleNavClick(item.href)}
-                  className={`text-white hover:bg-white/20 backdrop-blur-md rounded-2xl px-8 py-3 font-medium tracking-wide transition-all duration-300 shadow-lg ${
-                    isActive ? 'border border-white/30 bg-white/10' : 'border border-white/10 hover:border-white/20'
-                  }`}
+                  className={`${textColor} ${textColorHover} backdrop-blur-md rounded-2xl px-8 py-3 font-medium tracking-wide transition-all duration-300 shadow-lg ${isActive ? `border ${borderColorActive} ${bgColor}` : `border ${borderColor} hover:${borderColor}`
+                    }`}
                 >
                   {item.label}
                 </Button>
               ) : (
                 <Link href={item.href.startsWith('#') ? '/' + item.href : item.href}>
-                  <Button 
+                  <Button
                     variant="ghost"
-                    className={`text-white hover:bg-white/20 backdrop-blur-md rounded-2xl px-8 py-3 font-medium tracking-wide transition-all duration-300 shadow-lg ${
-                      isActive ? 'border border-white/30 bg-white/10' : 'border border-white/10 hover:border-white/20'
-                    }`}
+                    className={`${textColor} ${textColorHover} backdrop-blur-md rounded-2xl px-8 py-3 font-medium tracking-wide transition-all duration-300 shadow-lg ${isActive ? `border ${borderColorActive} ${bgColor}` : `border ${borderColor} hover:${borderColor}`
+                      }`}
                   >
                     {item.label}
                   </Button>
@@ -176,7 +179,7 @@ export function Navigation({ className, skipAnimation = false }: NavigationProps
             </motion.div>
           );
         })}
-        
+
         {/* Dark Mode Button */}
         <motion.div
           initial={shouldAnimate ? { y: -20, opacity: 0 } : false}
@@ -188,18 +191,17 @@ export function Navigation({ className, skipAnimation = false }: NavigationProps
           <Button
             variant="ghost"
             onClick={handleDarkModeClick}
-            className={`text-white hover:bg-white/20 backdrop-blur-md rounded-2xl p-3 font-medium tracking-wide transition-all duration-300 shadow-lg ${
-              isDarkMode ? 'border border-white/30 bg-white/10' : 'border border-white/10 hover:border-white/20'
-            }`}
+            className={`${textColor} ${textColorHover} backdrop-blur-md rounded-2xl p-3 font-medium tracking-wide transition-all duration-300 shadow-lg ${isDarkMode ? `border ${borderColorActive} ${bgColor}` : `border ${borderColor} hover:${borderColor}`
+              }`}
             title={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
           >
-            {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+            {isDarkMode ? <Sun className={`w-5 h-5 ${iconColor}`} /> : <Moon className={`w-5 h-5 ${iconColor}`} />}
           </Button>
         </motion.div>
       </div>
 
       {/* Mobile Menu Button - Always on right */}
-      <motion.div 
+      <motion.div
         className="md:hidden"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
@@ -208,9 +210,9 @@ export function Navigation({ className, skipAnimation = false }: NavigationProps
           variant="ghost"
           size="lg"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="text-white bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 rounded-2xl p-3 shadow-lg transition-all duration-300"
+          className={`${textColor} ${bgColor} ${bgColorHover} backdrop-blur-md border ${borderColor} rounded-2xl p-3 shadow-lg transition-all duration-300`}
         >
-          <Menu className="w-6 h-6" />
+          <Menu className={`w-6 h-6 ${iconColor}`} />
         </Button>
       </motion.div>
 
@@ -220,24 +222,23 @@ export function Navigation({ className, skipAnimation = false }: NavigationProps
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
-          className="md:hidden absolute top-24 right-8 z-40 bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 p-6 shadow-2xl"
+          className={`md:hidden absolute top-24 right-8 z-40 ${bgColor} backdrop-blur-xl rounded-3xl border ${borderColor} p-6 shadow-2xl`}
         >
           <div className="flex flex-col space-y-3">
             {navItems.map((item) => {
               // Determine if this nav item should be active
-              const isActive = isHomePage 
+              const isActive = isHomePage
                 ? activeSection === item.href.substring(1) // On home page, check if current section matches
                 : pathname === item.href.replace('#', '/'); // On other pages, check if pathname matches
-              
+
               return (
                 <div key={item.label}>
                   {isHomePage && item.href.startsWith('#') ? (
                     <Button
                       variant="ghost"
                       onClick={() => handleNavClick(item.href)}
-                      className={`text-white hover:bg-white/20 rounded-2xl px-6 py-3 font-medium tracking-wide transition-all duration-300 justify-start w-full ${
-                        isActive ? 'bg-white/10 border border-white/20' : ''
-                      }`}
+                      className={`${textColor} ${textColorHover} rounded-2xl px-6 py-3 font-medium tracking-wide transition-all duration-300 justify-start w-full ${isActive ? `${bgColor} border ${borderColor}` : ''
+                        }`}
                     >
                       {item.label}
                     </Button>
@@ -245,9 +246,8 @@ export function Navigation({ className, skipAnimation = false }: NavigationProps
                     <Link href={item.href.startsWith('#') ? '/' + item.href : item.href}>
                       <Button
                         variant="ghost"
-                        className={`text-white hover:bg-white/20 rounded-2xl px-6 py-3 font-medium tracking-wide transition-all duration-300 justify-start w-full ${
-                          isActive ? 'bg-white/10 border border-white/20' : ''
-                        }`}
+                        className={`${textColor} ${textColorHover} rounded-2xl px-6 py-3 font-medium tracking-wide transition-all duration-300 justify-start w-full ${isActive ? `${bgColor} border ${borderColor}` : ''
+                          }`}
                       >
                         {item.label}
                       </Button>
@@ -256,16 +256,15 @@ export function Navigation({ className, skipAnimation = false }: NavigationProps
                 </div>
               );
             })}
-            
+
             {/* Dark Mode Button in Mobile Menu */}
             <Button
               variant="ghost"
               onClick={handleDarkModeClick}
-              className={`text-white hover:bg-white/20 rounded-2xl px-6 py-3 font-medium tracking-wide transition-all duration-300 justify-start w-full ${
-                isDarkMode ? 'bg-white/10 border border-white/20' : ''
-              }`}
+              className={`${textColor} ${textColorHover} rounded-2xl px-6 py-3 font-medium tracking-wide transition-all duration-300 justify-start w-full ${isDarkMode ? `${bgColor} border ${borderColor}` : ''
+                }`}
             >
-              {isDarkMode ? <Sun className="w-5 h-5 mr-2" /> : <Moon className="w-5 h-5 mr-2" />}
+              {isDarkMode ? <Sun className={`w-5 h-5 mr-2 ${iconColor}`} /> : <Moon className={`w-5 h-5 mr-2 ${iconColor}`} />}
               {isDarkMode ? 'Light Mode' : 'Dark Mode'}
             </Button>
           </div>

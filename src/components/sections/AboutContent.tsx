@@ -4,10 +4,22 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Star, ExternalLink } from 'lucide-react';
 import { containerVariants, itemVariants } from '@/config/animations';
+import { useDarkMode } from '@/contexts/DarkModeContext';
 
 // Skills moved to SkillsContent.tsx
 
 export function AboutContent() {
+    const { isDarkMode } = useDarkMode();
+    
+    // Dynamic colors based on theme
+    const textColor = isDarkMode ? 'text-white/60' : 'text-black/60';
+    const textColorPrimary = isDarkMode ? 'text-white/90' : 'text-black/90';
+    const textColorBold = isDarkMode ? 'text-white' : 'text-black';
+    const textColorSecondary = isDarkMode ? 'text-white/80' : 'text-black/80';
+    const textColorTertiary = isDarkMode ? 'text-white/70' : 'text-black/70';
+    const textColorQuaternary = isDarkMode ? 'text-white/40' : 'text-black/40';
+    const bgColor = isDarkMode ? 'bg-white/10' : 'bg-black/10';
+    const starColor = isDarkMode ? 'text-white/60' : 'text-black/60';
     return (
         <motion.div
             className="relative z-30 flex flex-col items-center justify-center min-h-screen pt-24 px-8 sm:px-12 md:px-16 lg:px-20"
@@ -22,9 +34,9 @@ export function AboutContent() {
                     variants={itemVariants}
                 >
                     <div className="flex items-center gap-4 mb-8">
-                        <span className="text-white/60 text-lg">...</span>
-                        <span className="text-white/90 text-xl font-medium">/About me</span>
-                        <span className="text-white/60 text-lg">...</span>
+                        <span className={`${textColor} text-lg`}>...</span>
+                        <span className={`${textColorPrimary} text-xl font-medium`}>/About me</span>
+                        <span className={`${textColor} text-lg`}>...</span>
                     </div>
                 </motion.div>
 
@@ -34,15 +46,15 @@ export function AboutContent() {
                         className="flex-1 w-full"
                         variants={itemVariants}
                     >
-                        <div className="text-white/80 leading-relaxed space-y-6">
-                            <p className="text-white text-lg leading-relaxed">I'm Ariel — a developer, maker, and cat enthusiast.</p>
-                            <p className="text-white/70 text-sm leading-relaxed">I used to work in fashion design, and now I use code as my new creative tool. I love building apps that are thoughtful, playful, and easy to use.</p>
-                            <p className="text-white/70 text-sm leading-relaxed">When I'm not coding, you can find me doing DIY projects, experimenting with new ideas, or filming my cats' latest adventures. I'm always curious, always creating, and always looking for new ways to mix creativity with tech.</p>
+                        <div className={`${textColorSecondary} leading-relaxed space-y-6`}>
+                            <p className={`${textColorBold} text-lg leading-relaxed`}>I'm Ariel — a developer, maker, and cat enthusiast.</p>
+                            <p className={`${textColorTertiary} text-sm leading-relaxed`}>I used to work in fashion design, and now I use code as my new creative tool. I love building apps that are thoughtful, playful, and easy to use.</p>
+                            <p className={`${textColorTertiary} text-sm leading-relaxed`}>When I'm not coding, you can find me doing DIY projects, experimenting with new ideas, or filming my cats' latest adventures. I'm always curious, always creating, and always looking for new ways to mix creativity with tech.</p>
                             
                             <div className="pt-4 space-y-4">
-                                <p className="text-white text-sm leading-relaxed">I believe in creating digital experiences that are both beautiful and functional.</p>
-                                <p className="text-white/70 text-sm leading-relaxed">My background in fashion design gives me a unique perspective on user interfaces and experiences.</p>
-                                <p className="text-white/70 text-sm leading-relaxed">I'm constantly learning and exploring new technologies to expand my skillset and create better solutions.</p>
+                                <p className={`${textColorBold} text-sm leading-relaxed`}>I believe in creating digital experiences that are both beautiful and functional.</p>
+                                <p className={`${textColorTertiary} text-sm leading-relaxed`}>My background in fashion design gives me a unique perspective on user interfaces and experiences.</p>
+                                <p className={`${textColorTertiary} text-sm leading-relaxed`}>I'm constantly learning and exploring new technologies to expand my skillset and create better solutions.</p>
                             </div>
                         </div>
                     </motion.div>
@@ -74,9 +86,9 @@ export function AboutContent() {
                                     }}
                                 />
                                 {/* Fallback content */}
-                                <div className="hidden w-full h-full flex items-center justify-center text-white/40 text-center">
-                                    <div className="w-24 h-24 bg-white/10 rounded-full mx-auto flex items-center justify-center">
-                                        <Star className="w-12 h-12 text-white/60 fill-current" />
+                                <div className={`hidden w-full h-full flex items-center justify-center ${textColorQuaternary} text-center`}>
+                                    <div className={`w-24 h-24 ${bgColor} rounded-full mx-auto flex items-center justify-center`}>
+                                        <Star className={`w-12 h-12 ${starColor} fill-current`} />
                                     </div>
                                 </div>
                             </div>

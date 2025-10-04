@@ -7,6 +7,9 @@ import { useDarkMode } from '@/contexts/DarkModeContext';
 
 export function DarkModeToggle() {
   const { isDarkMode, toggleDarkMode } = useDarkMode();
+  
+  // Dynamic colors based on theme
+  const iconColor = isDarkMode ? 'text-white' : 'text-black';
 
   return (
     <motion.button
@@ -20,9 +23,9 @@ export function DarkModeToggle() {
       transition={{ delay: 1 }}
     >
       {isDarkMode ? (
-        <Sun className="w-6 h-6 text-white" />
+        <Sun className={`w-6 h-6 ${iconColor}`} />
       ) : (
-        <Moon className="w-6 h-6 text-white" />
+        <Moon className={`w-6 h-6 ${iconColor}`} />
       )}
     </motion.button>
   );

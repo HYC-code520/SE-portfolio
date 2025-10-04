@@ -4,6 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Star, ExternalLink } from 'lucide-react';
 import { containerVariants, itemVariants } from '@/config/animations';
+import { useDarkMode } from '@/contexts/DarkModeContext';
 
 const skillCategories = [
     {
@@ -34,6 +35,14 @@ const skillCategories = [
 ];
 
 export function SkillsContent() {
+    const { isDarkMode } = useDarkMode();
+    
+    // Dynamic colors based on theme
+    const textColor = isDarkMode ? 'text-white/60' : 'text-black/60';
+    const textColorPrimary = isDarkMode ? 'text-white/90' : 'text-black/90';
+    const textColorBold = isDarkMode ? 'text-white' : 'text-black';
+    const textColorSecondary = isDarkMode ? 'text-white/80' : 'text-black/80';
+    const textColorTertiary = isDarkMode ? 'text-white/70' : 'text-black/70';
     return (
         <motion.div
             className="relative z-30 flex flex-col items-center justify-center min-h-screen pt-24 px-8 sm:px-12 md:px-16 lg:px-20"
@@ -48,13 +57,13 @@ export function SkillsContent() {
                     variants={itemVariants}
                 >
                     <div className="flex items-center gap-4 mb-8">
-                        <span className="text-white/60 text-lg">...</span>
-                        <span className="text-white/90 text-xl font-medium">/Skills</span>
-                        <span className="text-white/60 text-lg">...</span>
+                        <span className={`${textColor} text-lg`}>...</span>
+                        <span className={`${textColorPrimary} text-xl font-medium`}>/Skills</span>
+                        <span className={`${textColor} text-lg`}>...</span>
                     </div>
 
-                    <div className="text-white/80 text-lg md:text-xl leading-relaxed">
-                        <span className="text-white">My technical toolkit</span>
+                    <div className={`${textColorSecondary} text-lg md:text-xl leading-relaxed`}>
+                        <span className={textColorBold}>My technical toolkit</span>
                     </div>
                 </motion.div>
 
@@ -76,10 +85,10 @@ export function SkillsContent() {
                                     }}
                                     transition={{ duration: 0.3 }}
                                 >
-                                    <h3 className="text-white font-semibold text-lg mb-4">
+                                    <h3 className={`${textColorBold} font-semibold text-lg mb-4`}>
                                         {category.title}
                                     </h3>
-                                    <div className="text-white/70 text-sm leading-relaxed">
+                                    <div className={`${textColorTertiary} text-sm leading-relaxed`}>
                                         {category.skills.join(" / ")}
                                     </div>
                                 </motion.div>
@@ -88,12 +97,12 @@ export function SkillsContent() {
 
                         {/* Bottom Note */}
                         <motion.div
-                            className="text-white/60 text-sm italic mt-8"
+                            className={`${textColor} text-sm italic mt-8`}
                             variants={itemVariants}
                         >
-                            Some of my <span className="text-white/80 font-medium">favorite technologies</span>,
+                            Some of my <span className={`${textColorSecondary} font-medium`}>favorite technologies</span>,
                             <br />
-                            <span className="text-white/80 font-medium">topics</span>, or <span className="text-white/80 font-medium">tools</span> that I worked with
+                            <span className={`${textColorSecondary} font-medium`}>topics</span>, or <span className={`${textColorSecondary} font-medium`}>tools</span> that I worked with
                         </motion.div>
                     </motion.div>
                 </div>

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useDarkMode } from '@/contexts/DarkModeContext';
 
 interface BackgroundSceneProps {
   imageUrl?: string;
@@ -10,23 +11,13 @@ interface BackgroundSceneProps {
 export function BackgroundScene({ 
   imageUrl = '/Background.png',
   starImageUrl = '/star-bg.png',
-  textGifUrl = '/Ariel-text.gif',
+  textGifUrl = '/Ariel-text-light-mode.gif',
   showTextGif = true
 }: BackgroundSceneProps) {
-  const [isDarkMode, setIsDarkMode] = useState(true);
-
-  // Listen for dark mode changes from Navigation component
-  useEffect(() => {
-    const handleDarkModeChange = (event: CustomEvent) => {
-      setIsDarkMode(event.detail);
-    };
-
-    window.addEventListener('darkModeChange', handleDarkModeChange as EventListener);
-    
-    return () => {
-      window.removeEventListener('darkModeChange', handleDarkModeChange as EventListener);
-    };
-  }, []);
+  const { isDarkMode } = useDarkMode();
+  
+  // Determine which text GIF to use based on theme
+  const currentTextGif = isDarkMode ? '/Ariel-text-dark-mode.gif' : textGifUrl;
 
   return (
     <>
@@ -79,7 +70,7 @@ export function BackgroundScene({
           className="absolute inset-0 bg-center bg-no-repeat transition-all duration-500 ease-in-out z-30
                      bg-[length:500px] sm:bg-[length:600px] md:bg-[length:800px] lg:bg-[length:1000px] xl:bg-[length:1200px]"
           style={{
-            backgroundImage: `url('${textGifUrl}')`,
+            backgroundImage: `url('${currentTextGif}')`,
             backgroundPosition: 'center'
           }}
         />

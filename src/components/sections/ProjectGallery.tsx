@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronRight, ExternalLink, Github } from 'lucide-react';
+import { useDarkMode } from '@/contexts/DarkModeContext';
 
 interface Project {
   id: string;
@@ -125,6 +126,22 @@ const projects: Project[] = [
 export function ProjectGallery() {
   const [selectedProject, setSelectedProject] = useState<string>('1');
   const [isClient, setIsClient] = useState(false);
+  const { isDarkMode } = useDarkMode();
+  
+  // Dynamic colors based on theme
+  const textColor = isDarkMode ? 'text-white/60' : 'text-black/60';
+  const textColorPrimary = isDarkMode ? 'text-white/90' : 'text-black/90';
+  const textColorBold = isDarkMode ? 'text-white' : 'text-black';
+  const textColorSecondary = isDarkMode ? 'text-white/80' : 'text-black/80';
+  const textColorTertiary = isDarkMode ? 'text-white/70' : 'text-black/70';
+  const textColorQuaternary = isDarkMode ? 'text-white/40' : 'text-black/40';
+  const iconColor = isDarkMode ? 'text-white' : 'text-black';
+  const iconColorSecondary = isDarkMode ? 'text-white/60' : 'text-black/60';
+  const bgColor = isDarkMode ? 'bg-white/10' : 'bg-black/10';
+  const borderColor = isDarkMode ? 'border-white/30' : 'border-black/30';
+  const borderColorLight = isDarkMode ? 'border-white/20' : 'border-black/20';
+  const buttonBg = isDarkMode ? 'from-purple-500/20 to-blue-500/20 hover:from-purple-500/30 hover:to-blue-500/30' : 'from-purple-500/30 to-blue-500/30 hover:from-purple-500/40 hover:to-blue-500/40';
+  const buttonHoverBg = isDarkMode ? 'rgba(255, 255, 255, 0.25)' : 'rgba(0, 0, 0, 0.25)';
   const rightContainerRef = useRef<HTMLDivElement>(null);
   const isScrollingRef = useRef<boolean>(false);
   const hasInitialized = useRef<boolean>(false);
@@ -373,9 +390,9 @@ export function ProjectGallery() {
         {/* Header */}
         <div className="mb-6">
           <div className="flex items-center gap-4 mb-2">
-            <span className="text-white/60 text-lg">...</span>
-            <span className="text-white/90 text-xl font-medium">/My Projects</span>
-            <span className="text-white/60 text-lg">...</span>
+            <span className={`${textColor} text-lg`}>...</span>
+            <span className={`${textColorPrimary} text-xl font-medium`}>/My Projects</span>
+            <span className={`${textColor} text-lg`}>...</span>
           </div>
         </div>
 
@@ -403,20 +420,20 @@ export function ProjectGallery() {
                 <div className="flex items-center justify-between">
                   <div className="flex-1 flex items-center min-w-0">
                     {/* Project Title - Truncated on overflow */}
-                    <div className="flex-1 text-white font-semibold text-sm px-2 truncate">
+                    <div className={`flex-1 ${textColorBold} font-semibold text-sm px-2 truncate`}>
                       {project.title}
                     </div>
                     {/* Technologies - Hidden on medium screens, shown on large */}
-                    <div className="hidden xl:block w-32 lg:w-48 text-white/70 text-xs text-right flex-shrink-0">
+                    <div className={`hidden xl:block w-32 lg:w-48 ${textColorTertiary} text-xs text-right flex-shrink-0`}>
                       {project.technologies.slice(0, 2).join(' & ')}
                     </div>
                     {/* Single tech on medium screens */}
-                    <div className="hidden lg:block xl:hidden w-20 text-white/70 text-xs text-right flex-shrink-0">
+                    <div className={`hidden lg:block xl:hidden w-20 ${textColorTertiary} text-xs text-right flex-shrink-0`}>
                       {project.technologies[0]}
                     </div>
                   </div>
                   {isSelected && (
-                    <ChevronRight className="w-4 h-4 text-white ml-2 flex-shrink-0" />
+                    <ChevronRight className={`w-4 h-4 ${iconColor} ml-2 flex-shrink-0`} />
                   )}
                 </div>
               </motion.div>
@@ -514,20 +531,20 @@ export function ProjectGallery() {
                     </video>
                   </div>
                 ) : project.githubUrl && !project.video && !project.youtubeId && !project.loomUrl ? (
-                  <div className="text-white/40 text-center p-8">
-                    <div className="w-24 h-24 bg-white/10 rounded-2xl mx-auto mb-6 flex items-center justify-center">
-                      <Github className="w-12 h-12 text-white/60" />
+                  <div className={`${textColorQuaternary} text-center p-8`}>
+                    <div className={`w-24 h-24 ${bgColor} rounded-2xl mx-auto mb-6 flex items-center justify-center`}>
+                      <Github className={`w-12 h-12 ${iconColorSecondary}`} />
                     </div>
-                    <p className="text-xl font-medium text-white/80 mb-3">Demo Video Coming Soon!</p>
-                    <p className="text-sm text-white/60 mb-6">
+                    <p className={`text-xl font-medium ${textColorSecondary} mb-3`}>Demo Video Coming Soon!</p>
+                    <p className={`text-sm ${textColor} mb-6`}>
                       In the meantime, explore the project code and documentation
                     </p>
                     <motion.a
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500/20 to-blue-500/20 hover:from-purple-500/30 hover:to-blue-500/30 border border-white/30 rounded-lg px-6 py-3 text-white/90 font-medium transition-all duration-200 shadow-lg"
-                      whileHover={{ scale: 1.05, backgroundColor: 'rgba(255, 255, 255, 0.25)' }}
+                      className={`inline-flex items-center gap-2 bg-gradient-to-r ${buttonBg} border ${borderColor} rounded-lg px-6 py-3 ${textColorPrimary} font-medium transition-all duration-200 shadow-lg`}
+                      whileHover={{ scale: 1.05, backgroundColor: buttonHoverBg }}
                       whileTap={{ scale: 0.95 }}
                     >
                       <Github className="w-5 h-5" />
@@ -535,12 +552,12 @@ export function ProjectGallery() {
                     </motion.a>
                   </div>
                 ) : (
-                  <div className="text-white/40 text-center">
-                    <div className="w-24 h-24 bg-white/10 rounded-2xl mx-auto mb-4 flex items-center justify-center">
-                      <ExternalLink className="w-12 h-12 text-white/60" />
+                  <div className={`${textColorQuaternary} text-center`}>
+                    <div className={`w-24 h-24 ${bgColor} rounded-2xl mx-auto mb-4 flex items-center justify-center`}>
+                      <ExternalLink className={`w-12 h-12 ${iconColorSecondary}`} />
                     </div>
-                    <p className="text-lg font-medium">{project.title}</p>
-                    <p className="text-sm mt-2 text-white/60">
+                    <p className={`text-lg font-medium`}>{project.title}</p>
+                    <p className={`text-sm mt-2 ${textColor}`}>
                       {(project.video || project.youtubeId || project.loomUrl) && !isClient ? 'Loading media...' : 'Project Screenshot'}
                     </p>
                   </div>
@@ -551,10 +568,10 @@ export function ProjectGallery() {
               <div className="p-6">
                 <div className="flex items-start justify-between mb-4">
                   <div>
-                    <h2 className="text-2xl font-bold text-white mb-2">
+                    <h2 className={`text-2xl font-bold ${textColorBold} mb-2`}>
                       {project.title}
                     </h2>
-                    <p className="text-white/70 text-sm mb-3">
+                    <p className={`${textColorTertiary} text-sm mb-3`}>
                       {project.category}
                     </p>
                   </div>
@@ -566,7 +583,7 @@ export function ProjectGallery() {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                       >
-                        <ExternalLink className="w-4 h-4 text-white" />
+                        <ExternalLink className={`w-4 h-4 ${iconColor}`} />
                       </motion.a>
                     )}
                     {project.githubUrl && (
@@ -576,13 +593,13 @@ export function ProjectGallery() {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                       >
-                        <Github className="w-4 h-4 text-white" />
+                        <Github className={`w-4 h-4 ${iconColor}`} />
                       </motion.a>
                     )}
                   </div>
                 </div>
 
-                <p className="text-white/80 mb-4 leading-relaxed">
+                <p className={`${textColorSecondary} mb-4 leading-relaxed`}>
                   {project.description}
                 </p>
 
@@ -590,7 +607,7 @@ export function ProjectGallery() {
                   {project.technologies.map((tech: string) => (
                     <span
                       key={tech}
-                      className="bg-white/10 text-white/90 px-3 py-1 rounded-full text-sm border border-white/20"
+                      className={`${bgColor} ${textColorPrimary} px-3 py-1 rounded-full text-sm border ${borderColorLight}`}
                     >
                       {tech}
                     </span>
