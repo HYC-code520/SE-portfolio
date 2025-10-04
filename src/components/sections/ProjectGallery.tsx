@@ -22,13 +22,24 @@ interface Project {
 
 const projects: Project[] = [
   {
+    id: '10',
+    title: 'Cyber Tech',
+    description: 'Identity Sentinel - AI-powered incident response tool for account compromise investigations with step-by-step wizards and security monitoring dashboard',
+    image: '/project-cyber.jpg',
+    youtubeId: '1yU9J5whtks', // Cyber Tech demo video
+    technologies: ['React', 'Next.js', 'Prisma'],
+    category: 'Cybersecurity',
+    year: '2024',
+    githubUrl: 'https://github.com/HYC-code520/Cyber-Tech'
+  },
+  {
     id: '1',
     title: 'Psykhe Big 5 Personality Test',
     description: 'Professional personality assessment platform built for Psykhe, featuring comprehensive Big 5 personality testing with advanced analytics and user insights',
     image: '/project-psykhe.jpg',
     video: '/videos/Psykhe-AI-test.mp4',
     youtubeId: 'MX2XpuNJvDA', // Psykhe Big 5 Personality Test demo video
-    technologies: ['React', 'TypeScript', 'Next.js'],
+    technologies: ['Vue', 'TypeScript', 'SCSS'],
     category: 'Professional',
     year: '2024',
     liveUrl: 'https://psykhe.com/big-5-personality-test'
@@ -75,7 +86,7 @@ const projects: Project[] = [
     description: 'Pet care management platform for pet owners and veterinarians',
     image: '/project-8.jpg',
     loomUrl: 'https://www.loom.com/share/493ee2ee1e6f46e49aefd86f74839990?sid=647cd8ef-1fe0-48a5-ac74-3d1747ea70c2',
-    technologies: ['React', 'Express', 'PostgreSQL'],
+    technologies: ['React', 'Flask', 'PostgreSQL'],
     category: 'Pet Care',
     year: '2025',
     githubUrl: 'https://github.com/HYC-code520/PawHub'
