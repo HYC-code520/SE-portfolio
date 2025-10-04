@@ -383,7 +383,7 @@ export function ProjectGallery() {
           background: rgba(255, 255, 255, 0.3);
         }
       `}</style>
-      <div className="relative z-30 flex flex-col items-center justify-center min-h-screen pt-24 px-8 sm:px-12 md:px-16 lg:px-20">
+      <div className="relative z-30 flex flex-col items-center justify-start min-h-[60vh] pt-12 px-8 sm:px-12 md:px-16 lg:px-20">
       <div className="max-w-6xl mx-auto flex overflow-hidden">
         {/* Left Sidebar - Fixed Project List - Hidden on mobile */}
         <div className="hidden md:flex md:w-2/5 pr-6 flex-col">
@@ -391,7 +391,7 @@ export function ProjectGallery() {
         <div className="mb-6">
           <div className="flex items-center gap-4 mb-2">
             <span className={`${textColor} text-lg`}>...</span>
-            <span className={`${textColorPrimary} text-xl font-medium`}>/My Projects</span>
+            <span className={`${textColorPrimary} text-4xl md:text-5xl font-bold`}>/My Projects</span>
             <span className={`${textColor} text-lg`}>...</span>
           </div>
         </div>
@@ -443,7 +443,7 @@ export function ProjectGallery() {
       </div>
 
         {/* Right Side - Scrollable Project Gallery - Full width on mobile */}
-        <div className="relative w-full md:w-3/5 max-h-[70vh]">
+        <div className="relative w-full md:w-3/5 max-h-[85vh]">
 
           
           <div 

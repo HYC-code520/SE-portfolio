@@ -68,7 +68,7 @@ export function HeroSection({ content }: HeroSectionProps) {
       >
         
         <motion.h1 
-          className={`text-6xl md:text-8xl lg:text-9xl font-black ${textColor} mb-4 tracking-tighter`}
+          className={`text-8xl md:text-9xl lg:text-[12rem] xl:text-[14rem] font-black ${textColor} mb-4 tracking-tighter`}
           style={{ fontFamily: 'Inter, system-ui, -apple-system, sans-serif' }}
           variants={itemVariants}
         >

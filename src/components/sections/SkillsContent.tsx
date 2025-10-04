@@ -45,7 +45,7 @@ export function SkillsContent() {
     const textColorTertiary = isDarkMode ? 'text-white/70' : 'text-black/70';
     return (
         <motion.div
-            className="relative z-30 flex flex-col items-center justify-center min-h-screen pt-24 px-8 sm:px-12 md:px-16 lg:px-20"
+            className="relative z-30 flex flex-col items-center justify-center min-h-screen pt-8 px-8 sm:px-12 md:px-16 lg:px-20"
             variants={containerVariants}
             initial="hidden"
             animate="visible"
@@ -63,7 +63,7 @@ export function SkillsContent() {
                     </div>
 
                     <div className={`${textColorSecondary} text-lg md:text-xl leading-relaxed`}>
-                        <span className={textColorBold}>My technical toolkit</span>
+                        <span className={`${textColorBold} text-4xl md:text-5xl font-bold block mb-3`}>My technical toolkit</span>
                     </div>
                 </motion.div>
 

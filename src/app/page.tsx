@@ -75,22 +75,22 @@ export default function HomePage() {
         </section>
 
         {/* About Section */}
-        <section id="about" className="min-h-screen py-8 md:h-screen relative">
+        <section id="about" className="min-h-screen py-8 relative">
           <AboutContent />
         </section>
 
         {/* Skills Section */}
-        <section id="skills" className="min-h-screen py-8 md:h-screen relative">
+        <section id="skills" className="min-h-screen py-8 relative">
           <SkillsContent />
         </section>
 
         {/* Projects Section */}
-        <section id="projects" className="min-h-screen py-8 md:h-screen relative">
+        <section id="projects" className="min-h-[90vh] py-8 mb-32 relative">
           <ProjectGallery />
         </section>
 
         {/* Contact Section */}
-        <section id="contact" className="min-h-screen py-8 md:h-screen relative">
+        <section id="contact" className="min-h-screen py-8 mt-32 relative">
           <ContactSection />
         </section>
       </div>

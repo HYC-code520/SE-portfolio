@@ -103,7 +103,7 @@ export function Navigation({ className, skipAnimation = false }: NavigationProps
 
   return (
     <motion.nav
-      className={`relative z-50 flex justify-between items-center p-8 md:p-12 ${className}`}
+      className={`relative z-50 flex justify-between items-center p-4 md:p-6 ${className}`}
       variants={shouldAnimate ? navVariants : undefined}
       initial={shouldAnimate ? "hidden" : false}
       animate={shouldAnimate ? "visible" : false}

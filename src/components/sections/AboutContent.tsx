@@ -22,7 +22,7 @@ export function AboutContent() {
     const starColor = isDarkMode ? 'text-white/60' : 'text-black/60';
     return (
         <motion.div
-            className="relative z-30 flex flex-col items-center justify-center min-h-screen pt-24 px-8 sm:px-12 md:px-16 lg:px-20"
+            className="relative z-30 flex flex-col items-center justify-center min-h-screen pt-8 px-8 sm:px-12 md:px-16 lg:px-20"
             variants={containerVariants}
             initial="hidden"
             animate="visible"
@@ -47,7 +47,7 @@ export function AboutContent() {
                         variants={itemVariants}
                     >
                         <div className={`${textColorSecondary} leading-relaxed space-y-6`}>
-                            <p className={`${textColorBold} text-lg leading-relaxed`}>I'm Ariel — a developer, maker, and cat enthusiast.</p>
+                            <p className={`${textColorBold} text-4xl md:text-5xl font-bold leading-relaxed`}>I'm Ariel — a developer, maker, and cat enthusiast.</p>
                             <p className={`${textColorTertiary} text-sm leading-relaxed`}>I used to work in fashion design, and now I use code as my new creative tool. I love building apps that are thoughtful, playful, and easy to use.</p>
                             <p className={`${textColorTertiary} text-sm leading-relaxed`}>When I'm not coding, you can find me doing DIY projects, experimenting with new ideas, or filming my cats' latest adventures. I'm always curious, always creating, and always looking for new ways to mix creativity with tech.</p>
                             

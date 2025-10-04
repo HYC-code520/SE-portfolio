@@ -67,7 +67,7 @@ export function ContactSection() {
 
   return (
     <motion.div
-      className="relative z-30 flex flex-col items-center justify-center min-h-screen pt-24 px-8 sm:px-12 md:px-16 lg:px-20"
+      className="relative z-30 flex flex-col items-center justify-center min-h-screen pt-8 px-8 sm:px-12 md:px-16 lg:px-20"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
@@ -78,11 +78,7 @@ export function ContactSection() {
           className="mb-8 text-left"
           variants={itemVariants}
         >
-          <div className="flex items-start gap-4 mb-6">
-            <span className={`${textColor} text-lg`}>...</span>
-            <span className={`${textColorPrimary} text-xl font-medium`}>/Contact</span>
-            <span className={`${textColor} text-lg`}>...</span>
-          </div>
+
 
           <div className={`${textColorSecondary} text-lg md:text-xl leading-relaxed`}>
             <span className={`${textColorBold} text-4xl md:text-5xl font-bold block mb-3`}>Let's create something amazing</span>
@@ -90,15 +86,15 @@ export function ContactSection() {
           </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
           {/* Left Side - Contact Info */}
           <motion.div
             className="space-y-8"
             variants={itemVariants}
           >
             {/* Quick Contact */}
-            <div className={`${bgColor} backdrop-blur-lg border ${borderColor} rounded-2xl p-8 shadow-xl`}>
-              <h3 className={`${textColorBold} font-semibold text-2xl mb-6`}>Get In Touch</h3>
+            <div className={`${bgColor} backdrop-blur-lg border ${borderColor} rounded-2xl p-4 shadow-xl`}>
+              <h3 className={`${textColorBold} font-semibold text-2xl mb-4`}>Get In Touch</h3>
               
               <div className="space-y-6">
                 <motion.a
@@ -129,8 +125,8 @@ export function ContactSection() {
             </div>
 
             {/* Social Links */}
-            <div className={`${bgColor} backdrop-blur-lg border ${borderColor} rounded-2xl p-8 shadow-xl`}>
-              <h3 className={`${textColorBold} font-semibold text-xl mb-6`}>Connect</h3>
+            <div className={`${bgColor} backdrop-blur-lg border ${borderColor} rounded-2xl p-4 shadow-xl`}>
+              <h3 className={`${textColorBold} font-semibold text-xl mb-4`}>Connect</h3>
               <div className="flex gap-4">
                 <motion.a 
                   href="https://www.linkedin.com/in/ariel-chen-se/" 
@@ -158,15 +154,15 @@ export function ContactSection() {
 
           {/* Right Side - Contact Form */}
           <motion.div
-            className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-8 shadow-xl"
+            className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-4 shadow-xl"
             variants={itemVariants}
           >
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-4">
               {isSubmitted ? (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="text-center py-8"
+                  className="text-center py-4"
                 >
                   <CheckCircle className="w-16 h-16 text-green-400 mx-auto mb-4" />
                   <h3 className={`text-2xl font-semibold ${textColorBold} mb-2`}>Message Sent!</h3>
@@ -174,7 +170,7 @@ export function ContactSection() {
                 </motion.div>
               ) : (
                 <>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div>
                       <label className={`block ${textColorSecondary} text-sm font-medium mb-2`}>Name</label>
                       <input
@@ -227,7 +223,7 @@ export function ContactSection() {
                     <label className={`block ${textColorSecondary} text-sm font-medium mb-2`}>Message</label>
                     <textarea
                       name="message"
-                      rows={5}
+                      rows={4}
                       placeholder="Tell me about your project or idea..."
                       required
                       className={`w-full ${bgColorLight} border ${borderColor} rounded-xl px-4 py-3 ${textColorBold} ${placeholderColor} focus:outline-none ${borderColorFocus} transition-colors resize-none`}
