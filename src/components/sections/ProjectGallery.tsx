@@ -85,6 +85,7 @@ const projects: Project[] = [
     title: 'Finance Tech',
     description: 'Financial technology application for modern banking solutions',
     image: '/project-1.jpg',
+    loomUrl: 'https://www.loom.com/share/0a889d6a637f41a39fc8f9cb8d138be5?sid=395b6ab1-1854-4ba2-94a6-82a811778db4',
     technologies: ['React', 'Node.js', 'MongoDB'],
     category: 'FinTech',
     year: '2025',
@@ -113,9 +114,9 @@ const projects: Project[] = [
   {
     id: '7',
     title: 'Feel Good App',
-    description: 'Mental wellness application for mood tracking and self-care',
+    description: 'Mental wellness command-line application for mood tracking and self-care',
     image: '/project-6.jpg',
-    technologies: ['React', 'Node.js', 'MongoDB'],
+    technologies: ['Python', 'CLI'],
     category: 'Health & Wellness',
     year: '2025',
     liveUrl: '',
@@ -383,7 +384,7 @@ export function ProjectGallery() {
           background: rgba(255, 255, 255, 0.3);
         }
       `}</style>
-      <div className="relative z-30 flex flex-col items-center justify-start min-h-[60vh] pt-12 px-8 sm:px-12 md:px-16 lg:px-20">
+      <div className="relative z-30 flex flex-col items-center justify-center min-h-[100vh] px-8 sm:px-12 md:px-16 lg:px-20">
       <div className="max-w-6xl mx-auto flex overflow-hidden">
         {/* Left Sidebar - Fixed Project List - Hidden on mobile */}
         <div className="hidden md:flex md:w-2/5 pr-6 flex-col">
@@ -403,7 +404,7 @@ export function ProjectGallery() {
             return (
               <motion.div
                 key={project.id}
-                className={`p-2 md:p-3 lg:p-4 cursor-pointer transition-all duration-300 ${
+                className={`p-2 md:p-3 lg:p-4 cursor-pointer transition-all duration-300 h-14 flex items-center ${
                   isSelected 
                     ? 'bg-white/20 border-l-4 border-white' 
                     : 'bg-white/5 hover:bg-white/10'
@@ -417,7 +418,7 @@ export function ProjectGallery() {
                 }}
                 onClick={() => scrollToProject(project.id)}
               >
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between w-full">
                   <div className="flex-1 flex items-center min-w-0">
                     {/* Project Title - Truncated on overflow */}
                     <div className={`flex-1 ${textColorBold} font-semibold text-sm px-2 truncate`}>
@@ -531,13 +532,13 @@ export function ProjectGallery() {
                     </video>
                   </div>
                 ) : project.githubUrl && !project.video && !project.youtubeId && !project.loomUrl ? (
-                  <div className={`${textColorQuaternary} text-center p-8`}>
-                    <div className={`w-24 h-24 ${bgColor} rounded-2xl mx-auto mb-6 flex items-center justify-center`}>
-                      <Github className={`w-12 h-12 ${iconColorSecondary}`} />
+                  <div className={`${textColorQuaternary} text-center p-3 sm:p-8`}>
+                    <div className={`w-12 h-12 sm:w-24 sm:h-24 ${bgColor} rounded-xl sm:rounded-2xl mx-auto mb-2 sm:mb-6 flex items-center justify-center`}>
+                      <Github className={`w-6 h-6 sm:w-12 sm:h-12 ${iconColorSecondary}`} />
                     </div>
-                    <p className={`text-xl font-medium ${textColorSecondary} mb-3`}>Demo Video Coming Soon!</p>
-                    <p className={`text-sm ${textColor} mb-6`}>
-                      In the meantime, explore the project code and documentation
+                    <p className={`text-base sm:text-xl font-medium ${textColorSecondary} mb-1 sm:mb-3`}>Demo Video Coming Soon!</p>
+                    <p className={`text-xs sm:text-sm ${textColor} mb-3 sm:mb-6 px-3`}>
+                      In the meantime, explore the project code
                     </p>
                     <motion.a
                       href={project.githubUrl}
