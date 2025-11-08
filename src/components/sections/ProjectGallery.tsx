@@ -107,6 +107,7 @@ const projects: Project[] = [
     title: 'Climate Tech',
     description: 'Environmental technology platform for climate monitoring and solutions',
     image: '/project-2.jpg',
+    youtubeId: 'BSb3_WCjqDo', // Climate Tech demo video
     technologies: ['React', 'Python', 'APIs'],
     category: 'Climate Tech',
     year: '2025',
