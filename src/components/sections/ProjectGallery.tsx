@@ -22,6 +22,29 @@ interface Project {
 
 const projects: Project[] = [
   {
+    id: '3',
+    title: 'Climate Tech',
+    description: 'Environmental technology platform for climate monitoring and solutions',
+    image: '/project-2.jpg',
+    youtubeId: 'BSb3_WCjqDo', // Climate Tech demo video
+    technologies: ['React', 'Python', 'APIs'],
+    category: 'Climate Tech',
+    year: '2025',
+    githubUrl: 'https://github.com/HYC-code520/ClimateTech'
+  },
+  {
+    id: '11',
+    title: 'FloorIQ',
+    description: 'Intelligent floor plan analysis and optimization platform',
+    image: '/project-flooriq.jpg',
+    youtubeId: 'N9p3Xl-pzJY', // FloorIQ demo video
+    technologies: ['React', 'TypeScript', 'AI'],
+    category: 'PropTech',
+    year: '2025',
+    liveUrl: '',
+    githubUrl: ''
+  },
+  {
     id: '10',
     title: 'Cyber Tech',
     description: 'Identity Sentinel - AI-powered incident response tool for account compromise investigations with step-by-step wizards and security monitoring dashboard',
@@ -103,17 +126,6 @@ const projects: Project[] = [
     githubUrl: 'https://github.com/HYC-code520/Finance-Tech'
   },
   {
-    id: '3',
-    title: 'Climate Tech',
-    description: 'Environmental technology platform for climate monitoring and solutions',
-    image: '/project-2.jpg',
-    youtubeId: 'BSb3_WCjqDo', // Climate Tech demo video
-    technologies: ['React', 'Python', 'APIs'],
-    category: 'Climate Tech',
-    year: '2025',
-    githubUrl: 'https://github.com/HYC-code520/ClimateTech'
-  },
-  {
     id: '4',
     title: 'Fix StitchFix',
     description: 'Fashion recommendation system with personalized styling solutions',
@@ -133,23 +145,11 @@ const projects: Project[] = [
     year: '2025',
     liveUrl: '',
     githubUrl: 'https://github.com/HYC-code520/p3-feel-good-app'
-  },
-  {
-    id: '11',
-    title: 'FloorIQ',
-    description: 'Intelligent floor plan analysis and optimization platform',
-    image: '/project-flooriq.jpg',
-    youtubeId: 'N9p3Xl-pzJY', // FloorIQ demo video
-    technologies: ['React', 'TypeScript', 'AI'],
-    category: 'PropTech',
-    year: '2025',
-    liveUrl: '',
-    githubUrl: ''
   }
 ];
 
 export function ProjectGallery() {
-  const [selectedProject, setSelectedProject] = useState<string>('1');
+  const [selectedProject, setSelectedProject] = useState<string>('3');
   const [isClient, setIsClient] = useState(false);
   const { isDarkMode } = useDarkMode();
   
